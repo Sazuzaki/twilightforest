@@ -8,6 +8,7 @@ import twilightforest.TwilightForestMod;
 import twilightforest.block.entity.*;
 import twilightforest.block.entity.spawner.*;
 
+@SuppressWarnings("DataFlowIssue")
 public class TFBlockEntities {
 
 	public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, TwilightForestMod.ID);
@@ -115,4 +116,7 @@ public class TFBlockEntities {
 
 	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<CandelabraBlockEntity>> CANDELABRA = BLOCK_ENTITIES.register("candelabra", () ->
 		BlockEntityType.Builder.of(CandelabraBlockEntity::new, TFBlocks.CANDELABRA.get()).build(null));
+
+	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<MasonJarBlockEntity>> MASON_JAR = BLOCK_ENTITIES.register("mason_jar", () ->
+		BlockEntityType.Builder.of(MasonJarBlockEntity::new, TFBlocks.MASON_JAR.get()).build(null));
 }
