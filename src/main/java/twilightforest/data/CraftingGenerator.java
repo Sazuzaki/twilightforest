@@ -199,7 +199,7 @@ public class CraftingGenerator extends CraftingDataHelper {
 		crackedWoodRecipes(output);
 		crackedStoneRecipes(output);
 
-		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, TFBlocks.EMPTY_CANOPY_BOOKSHELF.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, TFBlocks.CHISELED_CANOPY_BOOKSHELF.get())
 			.pattern("---")
 			.pattern("   ")
 			.pattern("---")

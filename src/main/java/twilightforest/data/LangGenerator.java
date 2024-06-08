@@ -335,8 +335,7 @@ public class LangGenerator extends TFLangProvider {
 		this.createLogs("canopy", "Canopy Tree");
 		this.createWoodSet("canopy", "Canopy");
 		this.addBlock(TFBlocks.CANOPY_BOOKSHELF, "Canopy Bookshelf");
-		this.addBlock(TFBlocks.EMPTY_CANOPY_BOOKSHELF, "Empty Canopy Bookshelf");
-		this.addBlock(TFBlocks.DEATH_TOME_SPAWNER, "Death Tome Spawner");
+		this.addBlock(TFBlocks.CHISELED_CANOPY_BOOKSHELF, "Chiseled Canopy Bookshelf");
 
 		this.addBlock(TFBlocks.MANGROVE_LEAVES, "Mangrove Leaves");
 		this.addSapling("mangrove", "Mangrove Sapling");
@@ -796,6 +795,7 @@ public class LangGenerator extends TFLangProvider {
 		this.addStat("uncrafting_table_interactions", "Interactions with Uncrafting Table");
 
 		this.add("config.jade.plugin_twilightforest.quest_ram_wool", "Questing Ram Wool");
+		this.add("config.jade.plugin_twilightforest.chiseled_bookshelf_spawner", "Chiseled Canopy Bookshelf Spawns");
 
 		this.add("twilightforest.book.author", "a forgotten explorer");
 

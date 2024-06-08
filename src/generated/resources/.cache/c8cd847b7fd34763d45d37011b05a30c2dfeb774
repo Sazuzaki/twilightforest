@@ -1,4 +1,4 @@
-// 1.20.6	2024-05-08T00:14:16.4666673	Twilight Forest Entity Tags
+// 1.20.6	2024-06-07T10:29:20.9475302	Twilight Forest Entity Tags
 00b66b9a62a509d2c0bcfad259ff965c818a8f12 data/aether/tags/entity_types/deflectable_projectiles.json
 9e5f68b2faa6d767538d0f4264a7145d32a2bdda data/aether/tags/entity_types/fire_mob.json
 3ddb086fa7ad80a4f7018142796566c22407e7e4 data/aether/tags/entity_types/pigs.json
@@ -17,7 +17,7 @@ f0201eef926830e5f1c0aaaf18c674c503d22c0b data/minecraft/tags/entity_types/freeze
 4cc81785a3c2c7f11c11bac6cf2ad3c0d89c9ad5 data/minecraft/tags/entity_types/frog_food.json
 6184dccab39df4437d8d887c05024f60bd5e788d data/minecraft/tags/entity_types/immune_to_infested.json
 4cc81785a3c2c7f11c11bac6cf2ad3c0d89c9ad5 data/minecraft/tags/entity_types/immune_to_oozing.json
-2cbca68c050a403295054fe0e0f2705244f9a0ee data/minecraft/tags/entity_types/impact_projectiles.json
+7e37d5f14228bd5903b7d4c85c407f06d291ad53 data/minecraft/tags/entity_types/impact_projectiles.json
 e1ec2146a12c67e6333cd9738c81291aded74036 data/minecraft/tags/entity_types/powder_snow_walkable_mobs.json
 016d3165a6f228f7416cec2923bf9b8bed8979fa data/minecraft/tags/entity_types/redirectable_projectile.json
 05818cb02398f00d3d7129f8fa26858a295e069f data/minecraft/tags/entity_types/skeletons.json

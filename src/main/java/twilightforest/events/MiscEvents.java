@@ -27,7 +27,6 @@ import net.neoforged.neoforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 import twilightforest.TwilightForestMod;
-import twilightforest.block.TomeSpawnerBlock;
 import twilightforest.compat.curios.CuriosCompat;
 import twilightforest.entity.monster.DeathTome;
 import twilightforest.entity.passive.Bighorn;
@@ -106,18 +105,6 @@ public class MiscEvents {
 					tome.setOnLectern(true);
 				}
 			}
-		} else if (state.is(TFBlocks.DEATH_TOME_SPAWNER) && state.getValue(TomeSpawnerBlock.SPAWNER)) {
-			int bookCount = state.getValue(TomeSpawnerBlock.BOOK_STAGES);
-			if (bookCount < TomeSpawnerBlock.MAX_STAGES) {
-				level.setBlockAndUpdate(pos, state.setValue(TomeSpawnerBlock.BOOK_STAGES, bookCount + 1));
-
-				event.setCanceled(true);
-			}
-		} else if (state.is(TFBlocks.EMPTY_CANOPY_BOOKSHELF)) {
-			BlockState newState = TFBlocks.DEATH_TOME_SPAWNER.get().defaultBlockState().setValue(TomeSpawnerBlock.SPAWNER, true).setValue(TomeSpawnerBlock.BOOK_STAGES, 1);
-			level.setBlockAndUpdate(pos, newState);
-
-			event.setCanceled(true);
 		}
 	}
 

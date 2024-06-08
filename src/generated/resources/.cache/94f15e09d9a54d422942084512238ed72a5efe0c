@@ -1,4 +1,4 @@
-// 1.20.6	2024-06-01T20:08:48.8544293	TwilightForest Item and BlockItem models
+// 1.20.6	2024-06-05T20:14:53.4011512	TwilightForest Item and BlockItem models
 387b18dfa614fda790f7b8e8324e3b139fa177c2 assets/twilightforest/models/item/acacia_banister.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/twilightforest/models/item/adherent_spawn_egg.json
 0ca7dc7b4daec376dd0f85d57465830781584c7d assets/twilightforest/models/item/alpha_yeti_banner_pattern.json
@@ -175,14 +175,12 @@ fc7fa6c2d37875a13c4c9ab7eeac2ef6b5a37354 assets/twilightforest/models/item/dark_
 31bb8e075e499ae624ac0953114b8d041d9db2c0 assets/twilightforest/models/item/dark_trapped_chest.json
 90d034851a42185a2a4c5f28ad31465b8e484b79 assets/twilightforest/models/item/dark_wood.json
 d6edbd2c81a7358947e877898ffc5d059d1f4599 assets/twilightforest/models/item/deadrock.json
-a879f6b4baca5cfa97e95f72d7f7f0f69005b273 assets/twilightforest/models/item/death_tome_spawner.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/twilightforest/models/item/death_tome_spawn_egg.json
 7ba3b19a793b3e103b749655e5487cf6527233bf assets/twilightforest/models/item/decorative_mazestone.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/twilightforest/models/item/deer_spawn_egg.json
 6e739011bd20795270eab4e510d955e436d55d37 assets/twilightforest/models/item/diamond_minotaur_axe.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/twilightforest/models/item/dwarf_rabbit_spawn_egg.json
 6be7b80754543e6433b489b9ad2b9c923f991c69 assets/twilightforest/models/item/emperors_cloth.json
-0fc26f65831e3e2892e94ef6dccc911006ceafbc assets/twilightforest/models/item/empty_canopy_bookshelf.json
 8c88d3d84ae54896ffb1f178f1341deb9fdf0a01 assets/twilightforest/models/item/encased_castle_brick_pillar.json
 5e55bd9d8c71da87159d8422f9ddf3912c711c00 assets/twilightforest/models/item/encased_castle_brick_stairs.json
 de1ca1b0fc92ee00e649c5d372656f0a6a7f65ce assets/twilightforest/models/item/encased_castle_brick_tile.json

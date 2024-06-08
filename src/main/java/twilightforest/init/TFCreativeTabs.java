@@ -321,8 +321,7 @@ public class TFCreativeTabs {
 			makeSkullCandle(output, TFItems.CREEPER_SKULL_CANDLE);
 			makeSkullCandle(output, TFItems.PLAYER_SKULL_CANDLE);
 			makeSkullCandle(output, TFItems.PIGLIN_SKULL_CANDLE);
-			output.accept(TFBlocks.DEATH_TOME_SPAWNER);
-			output.accept(TFBlocks.EMPTY_CANOPY_BOOKSHELF);
+			output.accept(TFBlocks.CHISELED_CANOPY_BOOKSHELF);
 			output.accept(TFBlocks.KEEPSAKE_CASKET);
 			output.accept(TFBlocks.SMOKER);
 			output.accept(TFBlocks.FIRE_JET);

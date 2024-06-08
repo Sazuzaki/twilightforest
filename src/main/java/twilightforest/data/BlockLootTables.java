@@ -243,7 +243,6 @@ public class BlockLootTables extends BlockLootSubProvider {
 		dropSelf(TFBlocks.TWISTED_STONE.get());
 		dropSelf(TFBlocks.TWISTED_STONE_PILLAR.get());
 		dropSelf(TFBlocks.BOLD_STONE_PILLAR.get());
-		dropWhenSilkTouch(TFBlocks.EMPTY_CANOPY_BOOKSHELF.get());
 		add(TFBlocks.KEEPSAKE_CASKET.get(), casketInfo(TFBlocks.KEEPSAKE_CASKET.get()));
 		dropSelf(TFBlocks.CANDELABRA.get());
 		dropSelf(TFBlocks.WROUGHT_IRON_FENCE.get());
@@ -383,6 +382,7 @@ public class BlockLootTables extends BlockLootSubProvider {
 		add(TFBlocks.CANOPY_HANGING_SIGN.get(), createSingleItemTable(TFBlocks.CANOPY_HANGING_SIGN.get().asItem()));
 		add(TFBlocks.CANOPY_WALL_HANGING_SIGN.get(), createSingleItemTable(TFBlocks.CANOPY_HANGING_SIGN.get().asItem()));
 		add(TFBlocks.CANOPY_BOOKSHELF.get(), createSingleItemTableWithSilkTouch(TFBlocks.CANOPY_BOOKSHELF.get(), Items.BOOK, ConstantValue.exactly(2.0F)));
+		dropSelf(TFBlocks.CHISELED_CANOPY_BOOKSHELF.get());
 		dropSelf(TFBlocks.CANOPY_BANISTER.get());
 		dropSelf(TFBlocks.CANOPY_CHEST.get());
 		dropSelf(TFBlocks.CANOPY_TRAPPED_CHEST.get());

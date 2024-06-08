@@ -31,6 +31,7 @@ import net.neoforged.neoforge.entity.IEntityWithComplexSpawn;
 import net.neoforged.neoforge.entity.PartEntity;
 import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.event.level.BlockEvent;
+import twilightforest.data.tags.BlockTagGenerator;
 import twilightforest.init.TFDamageTypes;
 import twilightforest.init.TFEnchantments;
 import twilightforest.init.TFItems;
@@ -212,7 +213,7 @@ public class ChainBlock extends ThrowableProjectile implements IEntityWithComple
 	private boolean canBreakBlockAt(BlockPos pos, BlockState state, boolean restrictedPlaceMode) {
 		Level level = this.level();
 
-		return level.getWorldBorder().isWithinBounds(pos) && this.stack.isCorrectToolForDrops(state)
+		return level.getWorldBorder().isWithinBounds(pos) && this.stack.isCorrectToolForDrops(state) && !state.is(BlockTagGenerator.BLOCK_AND_CHAIN_NEVER_BREAKS)
 			&& (!restrictedPlaceMode || this.stack.canBreakBlockInAdventureMode(new BlockInWorld(level, pos, false)));
 	}
 
