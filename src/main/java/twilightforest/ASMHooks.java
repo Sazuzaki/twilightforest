@@ -75,6 +75,10 @@ import java.util.Optional;
 @SuppressWarnings({"JavadocReference", "unused", "RedundantSuppression", "deprecation"})
 public class ASMHooks {
 
+	public static void test() {
+		TwilightForestMod.LOGGER.info("test");
+	}
+
 	/**
 	 * Minecraft Overworld seed, unique and from the save's WorldOptions. A deep bastion for supporting many features unique to the Twilight Forest dimension.
 	 */
@@ -348,9 +352,10 @@ public class ASMHooks {
 	}
 
 	/**
-	 * Injection Point:<br>
-	 * {@link net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer#renderArmorPiece(PoseStack, MultiBufferSource, LivingEntity, EquipmentSlot, int, HumanoidModel)} <br>
-	 * [AFTER FIRST INSTANCEOF CHECK]
+	 * {@link twilightforest.asm.transformers.armor.CancelArmorRenderingTransformer}<p/>
+	 *
+	 * Injection Point:<br/>
+	 * {@link net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer#renderArmorPiece(PoseStack, MultiBufferSource, LivingEntity, EquipmentSlot, int, HumanoidModel)}
 	 */
 	public static boolean cancelArmorRendering(boolean o, ItemStack stack) {
 		if (o && stack.get(TFDataComponents.EMPERORS_CLOTH) != null) {
@@ -385,11 +390,13 @@ public class ASMHooks {
 	}
 
 	/**
-	 * Injection Point:<br>
-	 * {@link net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer#renderArmorPiece(PoseStack, MultiBufferSource, LivingEntity, EquipmentSlot, int, HumanoidModel)} <br>
-	 * [AFTER FIRST INVOKESTATIC of {@link net.minecraft.world.item.component.DyedItemColor#getOrDefault(net.minecraft.world.item.ItemStack, int)}]
+	 * {@link twilightforest.asm.transformers.armor.ArmorColorRenderingTransformer}<p/>
+	 *
+	 * Injection Point:<br/>
+	 * {@link net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer#renderArmorPiece(PoseStack, MultiBufferSource, LivingEntity, EquipmentSlot, int, HumanoidModel)} <br/>
+	 * Targets: {@link net.minecraft.world.item.component.DyedItemColor#getOrDefault(net.minecraft.world.item.ItemStack, int)}
 	 */
-	public static int getArcticArmorColor(int color, ArmorItem armorItem, ItemStack armorStack) {
+	public static int armorColorRendering(int color, ArmorItem armorItem, ItemStack armorStack) {
 		if (armorItem instanceof ArcticArmorItem) return DyedItemColor.getOrDefault(armorStack, ArcticArmorItem.DEFAULT_COLOR);
 		return color;
 	}

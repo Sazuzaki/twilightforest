@@ -97,7 +97,7 @@ public class TFClientEvents {
 
 			leavesModels.forEach(entry -> models.put(entry.getKey(), new BakedLeavesModel(entry.getValue())));
 
-            BakedModel oldModel = event.getModels().get(new ModelResourceLocation("twilightforest", "trollsteinn", "inventory"));
+			BakedModel oldModel = event.getModels().get(new ModelResourceLocation("twilightforest", "trollsteinn", "inventory"));
 			models.put(new ModelResourceLocation("twilightforest", "trollsteinn", "inventory"), new TrollsteinnModel(oldModel));
 		}
 
@@ -370,18 +370,18 @@ public class TFClientEvents {
 
 	@SubscribeEvent
 	public static void translateBookAuthor(ItemTooltipEvent event) {
-		 ItemStack stack = event.getItemStack();
-		 if (stack.getItem() instanceof WrittenBookItem && stack.has(DataComponents.WRITTEN_BOOK_CONTENT)) {
-		 	if (stack.has(TFDataComponents.TRANSLATABLE_BOOK)) {
-		 		List<Component> components = event.getToolTip();
-		 		for (int i = 0; i < components.size(); i++) {
-		 			Component component = components.get(i);
-		 			if (component.toString().contains("book.byAuthor")) {
-		 				components.set(i, (Component.translatable("book.byAuthor", Component.translatable(TwilightForestMod.ID + ".book.author"))).withStyle(component.getStyle()));
-		 			}
-		 		}
-		 	}
-		 }
+		ItemStack stack = event.getItemStack();
+		if (stack.getItem() instanceof WrittenBookItem && stack.has(DataComponents.WRITTEN_BOOK_CONTENT)) {
+			if (stack.has(TFDataComponents.TRANSLATABLE_BOOK)) {
+				List<Component> components = event.getToolTip();
+				for (int i = 0; i < components.size(); i++) {
+					Component component = components.get(i);
+					if (component.toString().contains("book.byAuthor")) {
+						components.set(i, (Component.translatable("book.byAuthor", Component.translatable(TwilightForestMod.ID + ".book.author"))).withStyle(component.getStyle()));
+					}
+				}
+			}
+		}
 	}
 
 	@SubscribeEvent
@@ -399,29 +399,34 @@ public class TFClientEvents {
 			event.setCanceled(true);
 			if (!state.isAir() && player.level().getWorldBorder().isWithinBounds(pos)) {
 				BlockPos offsetPos = new BlockPos(pos.getX() & ~0b11, pos.getY() & ~0b11, pos.getZ() & ~0b11);
-				renderGiantHitOutline(event.getPoseStack(), event.getMultiBufferSource().getBuffer(RenderType.lines()), event.getCamera().getPosition(), offsetPos);
+				renderGiantHitOutline(event.getPoseStack(), event.getMultiBufferSource().getBuffer(RenderType.lines()), Vec3.atLowerCornerOf(offsetPos).subtract(event.getCamera().getPosition()));
 			}
 		}
 	}
 
 	private static final VoxelShape GIANT_BLOCK = Shapes.box(0.0D, 0.0D, 0.0D, 4.0D, 4.0D, 4.0D);
 
-	private static void renderGiantHitOutline(PoseStack poseStack, VertexConsumer consumer, Vec3 cam, BlockPos pos) {
-		PoseStack.Pose last = poseStack.last();
-		float posX = pos.getX() - (float) cam.x();
-		float posY = pos.getY() - (float) cam.y();
-		float posZ = pos.getZ() - (float) cam.z();
-		GIANT_BLOCK.forAllEdges((x, y, z, x1, y1, z1) -> {
-			float xSize = (float) (x1 - x);
-			float ySize = (float) (y1 - y);
-			float zSize = (float) (z1 - z);
-			float sqrt = Mth.sqrt(xSize * xSize + ySize * ySize + zSize * zSize);
-			xSize /= sqrt;
-			ySize /= sqrt;
-			zSize /= sqrt;
-			consumer.vertex(last.pose(), (float) (x + posX), (float) (y + posY), (float) (z + posZ)).color(0.0F, 0.0F, 0.0F, 0.45F).normal(last, xSize, ySize, zSize).endVertex();
-			consumer.vertex(last.pose(), (float) (x1 + posX), (float) (y1 + posY), (float) (z1 + posZ)).color(0.0F, 0.0F, 0.0F, 0.45F).normal(last, xSize, ySize, zSize).endVertex();
-		});
+	private static void renderGiantHitOutline(PoseStack poseStack, VertexConsumer consumer, Vec3 xyz) {
+		PoseStack.Pose pose = poseStack.last();
+		TFClientEvents.GIANT_BLOCK.forAllEdges(
+			(x, y, z, x1, y1, z1) -> {
+				float xSize = (float) (x1 - x);
+				float ySize = (float) (y1 - y);
+				float zSize = (float) (z1 - z);
+				float sqrt = Mth.sqrt(xSize * xSize + ySize * ySize + zSize * zSize);
+				xSize /= sqrt;
+				ySize /= sqrt;
+				zSize /= sqrt;
+				consumer.vertex(pose, (float)(x + xyz.x), (float)(y + xyz.y), (float)(z + xyz.z))
+					.color((float) 0.0, (float) 0.0, (float) 0.0, (float) 0.45)
+					.normal(pose, xSize, ySize, zSize)
+					.endVertex();
+				consumer.vertex(pose, (float)(x1 + xyz.x), (float)(y1 + xyz.y), (float)(z1 + xyz.z))
+					.color((float) 0.0, (float) 0.0, (float) 0.0, (float) 0.45)
+					.normal(pose, xSize, ySize, zSize)
+					.endVertex();
+			}
+		);
 	}
 
 	@SubscribeEvent
