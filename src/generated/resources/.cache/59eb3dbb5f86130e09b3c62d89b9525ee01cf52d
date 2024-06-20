@@ -1,4 +1,4 @@
-// 1.21	2024-06-18T11:46:57.9938717	Loot Tables
+// 1.21	2024-06-20T12:50:45.8415954	Loot Tables
 483a7e0c99d5cabeab1ba9f04bd8e88d0a8f7386 data/twilightforest/loot_table/aurora_cache.json
 002a6e2eccdc92db019bd775911912877b26771f data/twilightforest/loot_table/aurora_room.json
 6b7c07d237e56f84d11d308552cd943af7a906e5 data/twilightforest/loot_table/basement.json
@@ -52,7 +52,7 @@ b71dd6d186bf83d00249eac97ad4b922ee1de879 data/twilightforest/loot_table/blocks/c
 52d2c37ee181120d1cc2e403b1f68654e9e525d1 data/twilightforest/loot_table/blocks/cherry_banister.json
 3e4ef25a370f63e4f3ac33f5e0b96cac7975d94b data/twilightforest/loot_table/blocks/chiseled_canopy_bookshelf.json
 b4c4d5b0a0e5856830258bb102c88764f346bd9d data/twilightforest/loot_table/blocks/cicada.json
-36f87b68644e4192d81f3d6a09a3a3a419b9a9cf data/twilightforest/loot_table/blocks/cicada_jar.json
+90a3e49c42ee795b49b6bdbaedc41e11e8f0c47f data/twilightforest/loot_table/blocks/cicada_jar.json
 35ec63d484c8051961dc8ed51ef9844e2b67f562 data/twilightforest/loot_table/blocks/cicada_squish.json
 4198f4890c0220cedd8f520bf31ee5af19152fa9 data/twilightforest/loot_table/blocks/cinder_furnace.json
 9642294508fe8d606c49c8842b8ff793dffd1ac4 data/twilightforest/loot_table/blocks/cinder_log.json
@@ -106,7 +106,7 @@ bbd8e9c07a2b58bb7c771a42379041a603393838 data/twilightforest/loot_table/blocks/e
 2e5a2b91a251f79bd40f528da19afb572272d484 data/twilightforest/loot_table/blocks/fiddlehead.json
 b48f8596ae93ef9a75b867f87fd08ce8af244649 data/twilightforest/loot_table/blocks/fiery_block.json
 a5d4fd8213fe43d255da2297c2850a66be69954a data/twilightforest/loot_table/blocks/firefly.json
-ea8e06afabae35a99c950fdb21fe7d1e6e39d978 data/twilightforest/loot_table/blocks/firefly_jar.json
+ffe4251762fbccaaa4b027e422ba2f80f337484f data/twilightforest/loot_table/blocks/firefly_jar.json
 1291c2cc152ffbc2e9e137d259ea845ab8d2d71b data/twilightforest/loot_table/blocks/firefly_particle_spawner.json
 874fd85b34a65dc85719b7279360e4602fe22566 data/twilightforest/loot_table/blocks/firefly_squish.json
 926a875805a8102d5cfe386ffa8c2dbffd4efd65 data/twilightforest/loot_table/blocks/fire_jet.json
@@ -213,6 +213,7 @@ fa2dea13306940985312b5236b4aeaf04a56e875 data/twilightforest/loot_table/blocks/m
 16c0cc385d47c02a71da1dbe69f8544b972d16f5 data/twilightforest/loot_table/blocks/mangrove_wall_hanging_sign.json
 7f37fbd2807cc80e20cdb329b7e47b33956981a5 data/twilightforest/loot_table/blocks/mangrove_wall_sign.json
 8e7d5159e1cfae13c772089a84812e34233e80d6 data/twilightforest/loot_table/blocks/mangrove_wood.json
+ff144923520870205a5f98605b33ff8c39b9430d data/twilightforest/loot_table/blocks/mason_jar.json
 ddc54ee1614ab6e47ecac39e159fa3e5d1ace7b3 data/twilightforest/loot_table/blocks/mayapple.json
 b879439fe5882fc240dc4d6ad1361711b7a242d4 data/twilightforest/loot_table/blocks/mazestone.json
 497f33626a55a60cb6e749af2d76014f69d2cd08 data/twilightforest/loot_table/blocks/mazestone_border.json

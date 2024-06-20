@@ -65,7 +65,6 @@ import twilightforest.client.model.item.TrollsteinnModel;
 import twilightforest.client.renderer.TFSkyRenderer;
 import twilightforest.client.renderer.entity.ShieldLayer;
 import twilightforest.client.renderer.tileentity.JarRenderer;
-import twilightforest.compat.curios.CuriosCompat;
 import twilightforest.components.entity.TFPortalAttachment;
 import twilightforest.components.item.PotionFlaskComponent;
 import twilightforest.config.TFConfig;
@@ -248,15 +247,10 @@ public class TFClientEvents {
 			event.register(new ModelResourceLocation(TwilightForestMod.prefix("trophy_quest"), "inventory"));
 			event.register(new ModelResourceLocation(TwilightForestMod.prefix("trollsteinn_light"), "inventory"));
 
-			event.register(TwilightForestMod.prefix("block/casket_obsidian"));
-			event.register(TwilightForestMod.prefix("block/casket_stone"));
-			event.register(TwilightForestMod.prefix("block/casket_basalt"));
-			event.register(TwilightForestMod.prefix("block/casket_basalt"));
-
 			for (ResourceLocation location : JarRenderer.LOG_LOCATION_MAP.values()) {
 				String name = location.getPath();
 				if ((name.equals("mangrove_log") || name.equals("stripped_mangrove_log")) && location.getNamespace().equals("minecraft")) name = "vanilla_" + name;
-				event.register(TwilightForestMod.prefix("block/" + name + "_lid"));
+				event.register(new ModelResourceLocation(TwilightForestMod.prefix("block/" + name + "_lid"), ModelResourceLocation.STANDALONE_VARIANT));
 			}
 		}
 
@@ -265,12 +259,8 @@ public class TFClientEvents {
 			JarRenderer.LOG_LOCATION_MAP.forEach((item, location) -> {
 				String name = location.getPath();
 				if ((name.equals("mangrove_log") || name.equals("stripped_mangrove_log")) && location.getNamespace().equals("minecraft")) name = "vanilla_" + name;
-                JarRenderer.LIDS.put(item, event.getModels().get(TwilightForestMod.prefix("block/" + name + "_lid")));
+                JarRenderer.LIDS.put(item, event.getModels().get(new ModelResourceLocation(TwilightForestMod.prefix("block/" + name + "_lid"), ModelResourceLocation.STANDALONE_VARIANT)));
             });
-			event.register(ModelResourceLocation.standalone(TwilightForestMod.prefix("item/trophy")));
-			event.register(ModelResourceLocation.standalone(TwilightForestMod.prefix("item/trophy_minor")));
-			event.register(ModelResourceLocation.standalone(TwilightForestMod.prefix("item/trophy_quest")));
-			event.register(ModelResourceLocation.standalone(TwilightForestMod.prefix("item/trollsteinn_light")));
 		}
 
 		@SubscribeEvent
