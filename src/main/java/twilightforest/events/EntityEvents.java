@@ -21,6 +21,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.projectile.ProjectileDeflection;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.LeadItem;
@@ -64,7 +65,7 @@ import twilightforest.block.entity.KeepsakeCasketBlockEntity;
 import twilightforest.block.entity.SkullCandleBlockEntity;
 import twilightforest.config.TFConfig;
 import twilightforest.data.tags.EntityTagGenerator;
-import twilightforest.enchantment.ChillAuraEnchantment;
+import twilightforest.enchantment.ApplyFrostedEffect;
 import twilightforest.entity.projectile.ITFProjectile;
 import twilightforest.init.*;
 import twilightforest.item.FieryArmorItem;
@@ -136,7 +137,7 @@ public class EntityEvents {
 			}
 
 			if (trueSource instanceof LivingEntity target) {
-				ChillAuraEnchantment.doChillAuraEffect(target, chillLevel * 5 + 5, chillLevel, chillLevel > 0);
+				ApplyFrostedEffect.doChillAuraEffect(target, chillLevel * 5 + 5, chillLevel, chillLevel > 0);
 			}
 		}
 
@@ -208,17 +209,9 @@ public class EntityEvents {
 			if (event.getRayTraceResult() instanceof EntityHitResult result) {
 				Entity entity = result.getEntity();
 
-				if (event.getEntity() != null && entity instanceof LivingEntity entityBlocking) {
-					if (entityBlocking.isBlocking() && entityBlocking.getUseItem().getUseDuration() - entityBlocking.getUseItemRemainingTicks() <= TFConfig.shieldParryTicks) {
-						projectile.setOwner(entityBlocking);
-						Vec3 rebound = entityBlocking.getLookAngle();
-						projectile.shoot(rebound.x(), rebound.y(), rebound.z(), 1.1F, 0.1F);  // reflect faster and more accurately
-						if (projectile instanceof AbstractHurtingProjectile hurting) {
-							hurting.xPower = rebound.x() * 0.1D;
-							hurting.yPower = rebound.y() * 0.1D;
-							hurting.zPower = rebound.z() * 0.1D;
-						}
-
+				if (entity instanceof LivingEntity entityBlocking) {
+					if (entityBlocking.isBlocking() && entityBlocking.getUseItem().getUseDuration(entityBlocking) - entityBlocking.getUseItemRemainingTicks() <= TFConfig.shieldParryTicks) {
+						projectile.deflect(ProjectileDeflection.AIM_DEFLECT, entityBlocking, entityBlocking, true);
 						event.setCanceled(true);
 					}
 				}
@@ -419,7 +412,7 @@ public class EntityEvents {
 			if (TFConfig.multiplayerFightAdjuster.adjustsHealth()) {
 				List<ServerPlayer> nearbyPlayers = event.getLevel().getEntitiesOfClass(ServerPlayer.class, event.getEntity().getBoundingBox().inflate(32, 10, 32), player -> EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(EntitySelector.ENTITY_STILL_ALIVE).test(player));
 				if (nearbyPlayers.size() > 1 && event.getEntity().getAttribute(Attributes.MAX_HEALTH) != null) {
-					event.getEntity().getAttribute(Attributes.MAX_HEALTH).addPermanentModifier(new AttributeModifier(GROUP_HEALTH_UUID, "Multiplayer Bonus Health", getHealthBasedOnDifficulty(event.getDifficulty().getDifficulty()) * (nearbyPlayers.size() - 1), AttributeModifier.Operation.ADD_VALUE));
+					event.getEntity().getAttribute(Attributes.MAX_HEALTH).addPermanentModifier(new AttributeModifier(TwilightForestMod.prefix("group_health_boost"), getHealthBasedOnDifficulty(event.getDifficulty().getDifficulty()) * (nearbyPlayers.size() - 1), AttributeModifier.Operation.ADD_VALUE));
 				}
 			}
 		}

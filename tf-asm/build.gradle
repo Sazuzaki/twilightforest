@@ -1,7 +1,7 @@
 plugins {
 	id 'java-library'
 	id 'idea'
-	id 'net.neoforged.gradle.platform' version '7.0.133'
+	id 'net.neoforged.gradle.platform' version '7.0.142'
 }
 
 repositories {
@@ -27,7 +27,7 @@ base {
 
 dependencies {
 	compileOnly "org.jetbrains:annotations:24.0.1"
-	compileOnly "net.neoforged.fancymodloader:loader:3.0.45"
+	compileOnly "net.neoforged.fancymodloader:loader:4.0.8"
 
 	// This is for javadoc, please do not actually classload anything from the main source set!!!!!!
 	compileOnly project(":")

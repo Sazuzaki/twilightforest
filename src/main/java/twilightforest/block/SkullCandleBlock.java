@@ -92,11 +92,13 @@ public class SkullCandleBlock extends AbstractSkullCandleBlock {
 	}
 
 	@Override
+	@SuppressWarnings("deprecation") // Fine for override
 	public BlockState rotate(BlockState state, Rotation rot) {
 		return state.setValue(ROTATION, rot.rotate(state.getValue(ROTATION), 16));
 	}
 
 	@Override
+	@SuppressWarnings("deprecation") // Fine for override
 	public BlockState mirror(BlockState state, Mirror mirror) {
 		return state.setValue(ROTATION, mirror.mirror(state.getValue(ROTATION), 16));
 	}

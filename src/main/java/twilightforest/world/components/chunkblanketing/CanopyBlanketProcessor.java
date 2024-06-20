@@ -118,7 +118,7 @@ public record CanopyBlanketProcessor(HolderSet<Biome> biomesForApplication, Bloc
 
 					// manipulate top and bottom
 					int treeBottom = pos.getY() + height - (int) (thickness * 0.5F);
-					int treeTop = treeBottom + (int) (thickness * 1.5F);
+					int treeTop = treeBottom + (int) (thickness);
 
 					for (int y = treeBottom; y < treeTop; y++) {
 						chunk.setBlockState(pos.atY(y), canopyBlock.getState(random, pos), false);

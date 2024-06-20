@@ -48,7 +48,7 @@ public interface UncraftingPlaceRecipe<C> extends PlaceRecipe<C> {
 				}
 
 				if (xOverfitted) {
-					this.addItemToSlot(ingredients, slotIndex, maxAmount, gridY, gridX);
+					this.addItemToSlot(ingredients.next(), slotIndex, maxAmount, gridY, gridX);
 				} else if (o == gridX) {
 					slotIndex += width - gridX;
 					break;

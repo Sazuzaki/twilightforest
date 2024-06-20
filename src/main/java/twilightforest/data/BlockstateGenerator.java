@@ -122,40 +122,40 @@ public class BlockstateGenerator extends BlockModelBuilders {
 
 		towerBlocks();
 
-		simpleBlock(TFBlocks.FAKE_GOLD.get(), models().getExistingFile(new ResourceLocation("block/gold_block")));
-		simpleBlock(TFBlocks.FAKE_DIAMOND.get(), models().getExistingFile(new ResourceLocation("block/diamond_block")));
+		simpleBlock(TFBlocks.FAKE_GOLD.get(), models().getExistingFile(ResourceLocation.withDefaultNamespace("block/gold_block")));
+		simpleBlock(TFBlocks.FAKE_DIAMOND.get(), models().getExistingFile(ResourceLocation.withDefaultNamespace("block/diamond_block")));
 
-		simpleBlock(TFBlocks.NAGA_TROPHY.get(), models().getExistingFile(new ResourceLocation("block/skull")));
-		simpleBlock(TFBlocks.LICH_TROPHY.get(), models().getExistingFile(new ResourceLocation("block/skull")));
-		simpleBlock(TFBlocks.MINOSHROOM_TROPHY.get(), models().getExistingFile(new ResourceLocation("block/skull")));
-		simpleBlock(TFBlocks.HYDRA_TROPHY.get(), models().getExistingFile(new ResourceLocation("block/skull")));
-		simpleBlock(TFBlocks.ALPHA_YETI_TROPHY.get(), models().getExistingFile(new ResourceLocation("block/skull")));
-		simpleBlock(TFBlocks.SNOW_QUEEN_TROPHY.get(), models().getExistingFile(new ResourceLocation("block/skull")));
-		simpleBlock(TFBlocks.KNIGHT_PHANTOM_TROPHY.get(), models().getExistingFile(new ResourceLocation("block/skull")));
-		simpleBlock(TFBlocks.UR_GHAST_TROPHY.get(), models().getExistingFile(new ResourceLocation("block/skull")));
-		simpleBlock(TFBlocks.QUEST_RAM_TROPHY.get(), models().getExistingFile(new ResourceLocation("block/skull")));
-		simpleBlock(TFBlocks.NAGA_WALL_TROPHY.get(), models().getExistingFile(new ResourceLocation("block/skull")));
-		simpleBlock(TFBlocks.LICH_WALL_TROPHY.get(), models().getExistingFile(new ResourceLocation("block/skull")));
-		simpleBlock(TFBlocks.MINOSHROOM_WALL_TROPHY.get(), models().getExistingFile(new ResourceLocation("block/skull")));
-		simpleBlock(TFBlocks.HYDRA_WALL_TROPHY.get(), models().getExistingFile(new ResourceLocation("block/skull")));
-		simpleBlock(TFBlocks.ALPHA_YETI_WALL_TROPHY.get(), models().getExistingFile(new ResourceLocation("block/skull")));
-		simpleBlock(TFBlocks.SNOW_QUEEN_WALL_TROPHY.get(), models().getExistingFile(new ResourceLocation("block/skull")));
-		simpleBlock(TFBlocks.KNIGHT_PHANTOM_WALL_TROPHY.get(), models().getExistingFile(new ResourceLocation("block/skull")));
-		simpleBlock(TFBlocks.UR_GHAST_WALL_TROPHY.get(), models().getExistingFile(new ResourceLocation("block/skull")));
-		simpleBlock(TFBlocks.QUEST_RAM_WALL_TROPHY.get(), models().getExistingFile(new ResourceLocation("block/skull")));
+		simpleBlock(TFBlocks.NAGA_TROPHY.get(), models().getExistingFile(ResourceLocation.withDefaultNamespace("block/skull")));
+		simpleBlock(TFBlocks.LICH_TROPHY.get(), models().getExistingFile(ResourceLocation.withDefaultNamespace("block/skull")));
+		simpleBlock(TFBlocks.MINOSHROOM_TROPHY.get(), models().getExistingFile(ResourceLocation.withDefaultNamespace("block/skull")));
+		simpleBlock(TFBlocks.HYDRA_TROPHY.get(), models().getExistingFile(ResourceLocation.withDefaultNamespace("block/skull")));
+		simpleBlock(TFBlocks.ALPHA_YETI_TROPHY.get(), models().getExistingFile(ResourceLocation.withDefaultNamespace("block/skull")));
+		simpleBlock(TFBlocks.SNOW_QUEEN_TROPHY.get(), models().getExistingFile(ResourceLocation.withDefaultNamespace("block/skull")));
+		simpleBlock(TFBlocks.KNIGHT_PHANTOM_TROPHY.get(), models().getExistingFile(ResourceLocation.withDefaultNamespace("block/skull")));
+		simpleBlock(TFBlocks.UR_GHAST_TROPHY.get(), models().getExistingFile(ResourceLocation.withDefaultNamespace("block/skull")));
+		simpleBlock(TFBlocks.QUEST_RAM_TROPHY.get(), models().getExistingFile(ResourceLocation.withDefaultNamespace("block/skull")));
+		simpleBlock(TFBlocks.NAGA_WALL_TROPHY.get(), models().getExistingFile(ResourceLocation.withDefaultNamespace("block/skull")));
+		simpleBlock(TFBlocks.LICH_WALL_TROPHY.get(), models().getExistingFile(ResourceLocation.withDefaultNamespace("block/skull")));
+		simpleBlock(TFBlocks.MINOSHROOM_WALL_TROPHY.get(), models().getExistingFile(ResourceLocation.withDefaultNamespace("block/skull")));
+		simpleBlock(TFBlocks.HYDRA_WALL_TROPHY.get(), models().getExistingFile(ResourceLocation.withDefaultNamespace("block/skull")));
+		simpleBlock(TFBlocks.ALPHA_YETI_WALL_TROPHY.get(), models().getExistingFile(ResourceLocation.withDefaultNamespace("block/skull")));
+		simpleBlock(TFBlocks.SNOW_QUEEN_WALL_TROPHY.get(), models().getExistingFile(ResourceLocation.withDefaultNamespace("block/skull")));
+		simpleBlock(TFBlocks.KNIGHT_PHANTOM_WALL_TROPHY.get(), models().getExistingFile(ResourceLocation.withDefaultNamespace("block/skull")));
+		simpleBlock(TFBlocks.UR_GHAST_WALL_TROPHY.get(), models().getExistingFile(ResourceLocation.withDefaultNamespace("block/skull")));
+		simpleBlock(TFBlocks.QUEST_RAM_WALL_TROPHY.get(), models().getExistingFile(ResourceLocation.withDefaultNamespace("block/skull")));
 
-		simpleBlock(TFBlocks.ZOMBIE_SKULL_CANDLE.get(), models().getExistingFile(new ResourceLocation("block/skull")));
-		simpleBlock(TFBlocks.ZOMBIE_WALL_SKULL_CANDLE.get(), models().getExistingFile(new ResourceLocation("block/skull")));
-		simpleBlock(TFBlocks.SKELETON_SKULL_CANDLE.get(), models().getExistingFile(new ResourceLocation("block/skull")));
-		simpleBlock(TFBlocks.SKELETON_WALL_SKULL_CANDLE.get(), models().getExistingFile(new ResourceLocation("block/skull")));
-		simpleBlock(TFBlocks.WITHER_SKELE_SKULL_CANDLE.get(), models().getExistingFile(new ResourceLocation("block/skull")));
-		simpleBlock(TFBlocks.WITHER_SKELE_WALL_SKULL_CANDLE.get(), models().getExistingFile(new ResourceLocation("block/skull")));
-		simpleBlock(TFBlocks.CREEPER_SKULL_CANDLE.get(), models().getExistingFile(new ResourceLocation("block/skull")));
-		simpleBlock(TFBlocks.CREEPER_WALL_SKULL_CANDLE.get(), models().getExistingFile(new ResourceLocation("block/skull")));
-		simpleBlock(TFBlocks.PLAYER_SKULL_CANDLE.get(), models().getExistingFile(new ResourceLocation("block/skull")));
-		simpleBlock(TFBlocks.PLAYER_WALL_SKULL_CANDLE.get(), models().getExistingFile(new ResourceLocation("block/skull")));
-		simpleBlock(TFBlocks.PIGLIN_SKULL_CANDLE.get(), models().getExistingFile(new ResourceLocation("block/skull")));
-		simpleBlock(TFBlocks.PIGLIN_WALL_SKULL_CANDLE.get(), models().getExistingFile(new ResourceLocation("block/skull")));
+		simpleBlock(TFBlocks.ZOMBIE_SKULL_CANDLE.get(), models().getExistingFile(ResourceLocation.withDefaultNamespace("block/skull")));
+		simpleBlock(TFBlocks.ZOMBIE_WALL_SKULL_CANDLE.get(), models().getExistingFile(ResourceLocation.withDefaultNamespace("block/skull")));
+		simpleBlock(TFBlocks.SKELETON_SKULL_CANDLE.get(), models().getExistingFile(ResourceLocation.withDefaultNamespace("block/skull")));
+		simpleBlock(TFBlocks.SKELETON_WALL_SKULL_CANDLE.get(), models().getExistingFile(ResourceLocation.withDefaultNamespace("block/skull")));
+		simpleBlock(TFBlocks.WITHER_SKELE_SKULL_CANDLE.get(), models().getExistingFile(ResourceLocation.withDefaultNamespace("block/skull")));
+		simpleBlock(TFBlocks.WITHER_SKELE_WALL_SKULL_CANDLE.get(), models().getExistingFile(ResourceLocation.withDefaultNamespace("block/skull")));
+		simpleBlock(TFBlocks.CREEPER_SKULL_CANDLE.get(), models().getExistingFile(ResourceLocation.withDefaultNamespace("block/skull")));
+		simpleBlock(TFBlocks.CREEPER_WALL_SKULL_CANDLE.get(), models().getExistingFile(ResourceLocation.withDefaultNamespace("block/skull")));
+		simpleBlock(TFBlocks.PLAYER_SKULL_CANDLE.get(), models().getExistingFile(ResourceLocation.withDefaultNamespace("block/skull")));
+		simpleBlock(TFBlocks.PLAYER_WALL_SKULL_CANDLE.get(), models().getExistingFile(ResourceLocation.withDefaultNamespace("block/skull")));
+		simpleBlock(TFBlocks.PIGLIN_SKULL_CANDLE.get(), models().getExistingFile(ResourceLocation.withDefaultNamespace("block/skull")));
+		simpleBlock(TFBlocks.PIGLIN_WALL_SKULL_CANDLE.get(), models().getExistingFile(ResourceLocation.withDefaultNamespace("block/skull")));
 
 		getVariantBuilder(TFBlocks.SPIRAL_BRICKS.get()).forAllStatesExcept(state -> ConfiguredModel.builder().modelFile(models().getExistingFile(TwilightForestMod.prefix("block/spiral_bricks/" + state.getValue(SpiralBrickBlock.AXIS_FACING).getName() + "_spiral_" + state.getValue(SpiralBrickBlock.DIAGONAL).getSerializedName()))).build(), BlockStateProperties.WATERLOGGED);
 
@@ -180,8 +180,8 @@ public class BlockstateGenerator extends BlockModelBuilders {
 		simpleBlock(TFBlocks.UNDERBRICK_FLOOR.get());
 		thorns();
 		thornRose();
-		simpleBlock(TFBlocks.THORN_LEAVES.get(), models().withExistingParent("thorn_leaves", new ResourceLocation("block/oak_leaves")));
-		simpleBlock(TFBlocks.BEANSTALK_LEAVES.get(), models().withExistingParent("beanstalk_leaves", new ResourceLocation("block/azalea_leaves")));
+		simpleBlock(TFBlocks.THORN_LEAVES.get(), models().withExistingParent("thorn_leaves", ResourceLocation.withDefaultNamespace("block/oak_leaves")));
+		simpleBlock(TFBlocks.BEANSTALK_LEAVES.get(), models().withExistingParent("beanstalk_leaves", ResourceLocation.withDefaultNamespace("block/azalea_leaves")));
 		simpleBlock(TFBlocks.HOLLOW_OAK_SAPLING.get(), models().cross(TFBlocks.HOLLOW_OAK_SAPLING.getId().getPath(), blockTexture(TFBlocks.HOLLOW_OAK_SAPLING.get())).renderType(CUTOUT));
 		ModelFile deadrock = models().cubeAll(TFBlocks.DEADROCK.getId().getPath(), blockTexture(TFBlocks.DEADROCK.get()));
 		simpleBlock(TFBlocks.DEADROCK.get(), ConfiguredModel.builder()
@@ -199,22 +199,22 @@ public class BlockstateGenerator extends BlockModelBuilders {
 		simpleBlock(TFBlocks.FLUFFY_CLOUD.get());
 		simpleBlock(TFBlocks.RAINY_CLOUD.get());
 		simpleBlock(TFBlocks.SNOWY_CLOUD.get());
-		simpleBlock(TFBlocks.GIANT_COBBLESTONE.get(), models().withExistingParent(TFBlocks.GIANT_COBBLESTONE.getId().getPath(), new ResourceLocation("block/block"))
+		simpleBlock(TFBlocks.GIANT_COBBLESTONE.get(), models().withExistingParent(TFBlocks.GIANT_COBBLESTONE.getId().getPath(), ResourceLocation.withDefaultNamespace("block/block"))
 			.texture("particle", blockTexture(Blocks.COBBLESTONE))
 			.texture("all", blockTexture(Blocks.COBBLESTONE))
 			.customLoader(GiantBlockBuilder::begin).parentBlock(Blocks.COBBLESTONE).end());
-		simpleBlock(TFBlocks.GIANT_LOG.get(), models().withExistingParent(TFBlocks.GIANT_LOG.getId().getPath(), new ResourceLocation("block/block"))
+		simpleBlock(TFBlocks.GIANT_LOG.get(), models().withExistingParent(TFBlocks.GIANT_LOG.getId().getPath(), ResourceLocation.withDefaultNamespace("block/block"))
 			.texture("particle", blockTexture(Blocks.OAK_LOG))
 			.texture("north", blockTexture(Blocks.OAK_LOG)).texture("south", blockTexture(Blocks.OAK_LOG))
 			.texture("west", blockTexture(Blocks.OAK_LOG)).texture("east", blockTexture(Blocks.OAK_LOG))
 			.texture("up", blockTexture(Blocks.OAK_LOG) + "_top").texture("down", blockTexture(Blocks.OAK_LOG) + "_top")
 			.customLoader(GiantBlockBuilder::begin).parentBlock(Blocks.OAK_LOG).end());
-		simpleBlock(TFBlocks.GIANT_LEAVES.get(), models().withExistingParent(TFBlocks.GIANT_LEAVES.getId().getPath(), new ResourceLocation("block/block"))
+		simpleBlock(TFBlocks.GIANT_LEAVES.get(), models().withExistingParent(TFBlocks.GIANT_LEAVES.getId().getPath(), ResourceLocation.withDefaultNamespace("block/block"))
 			.renderType(CUTOUT_MIPPED)
 			.texture("particle", blockTexture(Blocks.OAK_LEAVES))
 			.texture("all", blockTexture(Blocks.OAK_LEAVES))
 			.customLoader(GiantBlockBuilder::begin).parentBlock(Blocks.OAK_LEAVES).end());
-		simpleBlock(TFBlocks.GIANT_OBSIDIAN.get(), models().withExistingParent(TFBlocks.GIANT_OBSIDIAN.getId().getPath(), new ResourceLocation("block/block"))
+		simpleBlock(TFBlocks.GIANT_OBSIDIAN.get(), models().withExistingParent(TFBlocks.GIANT_OBSIDIAN.getId().getPath(), ResourceLocation.withDefaultNamespace("block/block"))
 			.texture("particle", blockTexture(Blocks.OBSIDIAN))
 			.texture("all", blockTexture(Blocks.OBSIDIAN))
 			.customLoader(GiantBlockBuilder::begin).parentBlock(Blocks.OBSIDIAN).end());
@@ -271,8 +271,8 @@ public class BlockstateGenerator extends BlockModelBuilders {
 
 		logBlock(TFBlocks.CINDER_LOG.get());
 		simpleBlock(TFBlocks.CINDER_WOOD.get(), models().cubeAll(TFBlocks.CINDER_WOOD.getId().getPath(), prefix("block/" + TFBlocks.CINDER_LOG.getId().getPath())));
-		ModelFile furnaceOff = models().getExistingFile(new ResourceLocation("block/furnace"));
-		ModelFile furnaceOn = models().getExistingFile(new ResourceLocation("block/furnace_on"));
+		ModelFile furnaceOff = models().getExistingFile(ResourceLocation.withDefaultNamespace("block/furnace"));
+		ModelFile furnaceOn = models().getExistingFile(ResourceLocation.withDefaultNamespace("block/furnace_on"));
 		horizontalBlock(TFBlocks.CINDER_FURNACE.get(), state -> state.getValue(CinderFurnaceBlock.LIT) ? furnaceOn : furnaceOff);
 
 		castleDoor(TFBlocks.YELLOW_CASTLE_DOOR.get());
@@ -343,7 +343,7 @@ public class BlockstateGenerator extends BlockModelBuilders {
 			.texture("south", prefix("block/uncrafting_side"))
 			.texture("west", prefix("block/uncrafting_side"))
 			.texture("east", prefix("block/uncrafting_side"))
-			.texture("bottom", new ResourceLocation("block/jungle_planks"))
+			.texture("bottom", ResourceLocation.withDefaultNamespace("block/jungle_planks"))
 			.texture("top2", prefix("block/uncrafting_glow"))
 			.texture("north2", prefix("block/uncrafting_glow_side"))
 			.texture("south2", prefix("block/uncrafting_glow_side"))
@@ -356,7 +356,7 @@ public class BlockstateGenerator extends BlockModelBuilders {
 			.texture("south", prefix("block/uncrafting_side"))
 			.texture("west", prefix("block/uncrafting_side"))
 			.texture("east", prefix("block/uncrafting_side"))
-			.texture("bottom", new ResourceLocation("block/jungle_planks"))
+			.texture("bottom", ResourceLocation.withDefaultNamespace("block/jungle_planks"))
 			.texture("top2", prefix("block/uncrafting_glow"));
 
 		getVariantBuilder(TFBlocks.UNCRAFTING_TABLE.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(s.getValue(UncraftingTableBlock.POWERED) ? glowing : notglowing).build());
@@ -510,7 +510,7 @@ public class BlockstateGenerator extends BlockModelBuilders {
 	private void registerForceFields() {
 		for (DeferredHolder<Block, Block> block : ImmutableList.of(TFBlocks.PINK_FORCE_FIELD, TFBlocks.BLUE_FORCE_FIELD, TFBlocks.GREEN_FORCE_FIELD, TFBlocks.VIOLET_FORCE_FIELD, TFBlocks.ORANGE_FORCE_FIELD)) {
 			ResourceLocation textureLocation = prefix("block/" + block.getId().getPath());
-			simpleBlock(block.get(), models().withExistingParent(block.getId().getPath(), new ResourceLocation("block/block"))
+			simpleBlock(block.get(), models().withExistingParent(block.getId().getPath(), ResourceLocation.withDefaultNamespace("block/block"))
 				.texture("particle", textureLocation)
 				.texture("pane", textureLocation)
 				.ao(false)
@@ -753,9 +753,9 @@ public class BlockstateGenerator extends BlockModelBuilders {
 		var builder = getVariantBuilder(TFBlocks.KEEPSAKE_CASKET.get());
 
 		var empty = models().getBuilder(name(TFBlocks.KEEPSAKE_CASKET.get())).parent(new ModelFile.UncheckedModelFile("builtin/entity")).texture("particle", "minecraft:block/netherite_block");
-		var obsidian = models().withExistingParent("casket_obsidian", prefix("block/casket_solid_template")).texture("top", new ResourceLocation("block/obsidian")).texture("side", new ResourceLocation("block/obsidian"));
-		var stone = models().withExistingParent("casket_stone", prefix("block/casket_solid_template")).texture("top", new ResourceLocation("block/stone")).texture("side", new ResourceLocation("block/stone"));
-		var basalt = models().withExistingParent("casket_basalt", prefix("block/casket_solid_template")).texture("top", new ResourceLocation("block/basalt_top")).texture("side", new ResourceLocation("block/basalt_side"));
+		var obsidian = models().withExistingParent("casket_obsidian", prefix("block/casket_solid_template")).texture("top", ResourceLocation.withDefaultNamespace("block/obsidian")).texture("side", ResourceLocation.withDefaultNamespace("block/obsidian"));
+		var stone = models().withExistingParent("casket_stone", prefix("block/casket_solid_template")).texture("top", ResourceLocation.withDefaultNamespace("block/stone")).texture("side", ResourceLocation.withDefaultNamespace("block/stone"));
+		var basalt = models().withExistingParent("casket_basalt", prefix("block/casket_solid_template")).texture("top", ResourceLocation.withDefaultNamespace("block/basalt_top")).texture("side", ResourceLocation.withDefaultNamespace("block/basalt_side"));
 
 		builder.partialState().with(BlockLoggingEnum.MULTILOGGED, BlockLoggingEnum.AIR).setModels(new ConfiguredModel(empty));
 		builder.partialState().with(BlockLoggingEnum.MULTILOGGED, BlockLoggingEnum.WATER).setModels(new ConfiguredModel(empty));
@@ -770,11 +770,11 @@ public class BlockstateGenerator extends BlockModelBuilders {
 		simpleBlock(TFBlocks.SMOKER.get(), this.makeTintedBlockColumnUniqueBottom(TFBlocks.SMOKER.getId().getPath())
 			.texture("side", prefix("block/firejet_side"))
 			.texture("top", prefix("block/firejet_top"))
-			.texture("bottom", new ResourceLocation("block/grass_block_top")));
+			.texture("bottom", ResourceLocation.withDefaultNamespace("block/grass_block_top")));
 		simpleBlock(TFBlocks.FIRE_JET.get(), this.makeTintedBlockColumnUniqueBottom(TFBlocks.FIRE_JET.getId().getPath())
 			.texture("side", prefix("block/firejet_side"))
 			.texture("top", prefix("block/firejet_top"))
-			.texture("bottom", new ResourceLocation("block/grass_block_top")));
+			.texture("bottom", ResourceLocation.withDefaultNamespace("block/grass_block_top")));
 
 		ModelFile smokerOff = this.make3LayerCubeIdenticalSides1Bottom(TFBlocks.ENCASED_SMOKER.getId().getPath(), 0, 10, 15, 10, 10)
 			.texture("top", prefix("block/towerdev_ghasttraplid_off"))
@@ -839,7 +839,7 @@ public class BlockstateGenerator extends BlockModelBuilders {
 		ModelFile berry = this.make2layerCross(TFBlocks.TORCHBERRY_PLANT.getId().getPath(), CUTOUT, 0, 15)
 			.texture("cross", blockTexture(TFBlocks.TORCHBERRY_PLANT.get()))
 			.texture("cross2", prefix("block/" + TFBlocks.TORCHBERRY_PLANT.getId().getPath() + "_glow"));
-		ModelFile noBerry = models().withExistingParent(TFBlocks.TORCHBERRY_PLANT.getId().getPath() + "_no_berries", new ResourceLocation("block/cross")).renderType(CUTOUT)
+		ModelFile noBerry = models().withExistingParent(TFBlocks.TORCHBERRY_PLANT.getId().getPath() + "_no_berries", ResourceLocation.withDefaultNamespace("block/cross")).renderType(CUTOUT)
 			.texture("cross", blockTexture(TFBlocks.TORCHBERRY_PLANT.get()));
 		getVariantBuilder(TFBlocks.TORCHBERRY_PLANT.get()).forAllStates(s -> ConfiguredModel.builder().modelFile(s.getValue(TorchberryPlantBlock.HAS_BERRIES) ? berry : noBerry).build());
 
@@ -919,8 +919,8 @@ public class BlockstateGenerator extends BlockModelBuilders {
 
 		final ResourceLocation MOSS = TwilightForestMod.prefix("block/mosspatch");
 		final ResourceLocation MOSS_OVERHANG = TwilightForestMod.prefix("block/moss_overhang");
-		final ResourceLocation TALL_GRASS = new ResourceLocation("block/short_grass");
-		final ResourceLocation SNOW = new ResourceLocation("block/snow");
+		final ResourceLocation TALL_GRASS = ResourceLocation.withDefaultNamespace("block/short_grass");
+		final ResourceLocation SNOW = ResourceLocation.withDefaultNamespace("block/snow");
 		final ResourceLocation SNOW_OVERHANG = TwilightForestMod.prefix("block/snow_overhang");
 
 		final ModelFile EMPTY_LOG = this.buildHorizontalHollowLog(false, false);
@@ -1179,7 +1179,7 @@ public class BlockstateGenerator extends BlockModelBuilders {
 			.with(CarminiteReactorBlock.ACTIVE, false).setModels(new ConfiguredModel(reactor));
 		getVariantBuilder(TFBlocks.CARMINITE_REACTOR.get()).partialState()
 			.with(CarminiteReactorBlock.ACTIVE, true).setModels(new ConfiguredModel(reactorActive));
-		simpleBlock(TFBlocks.REACTOR_DEBRIS.get(), models().cubeAll(TFBlocks.REACTOR_DEBRIS.getId().getPath(), new ResourceLocation("block/destroy_stage_9")).renderType(CUTOUT));
+		simpleBlock(TFBlocks.REACTOR_DEBRIS.get(), models().cubeAll(TFBlocks.REACTOR_DEBRIS.getId().getPath(), ResourceLocation.withDefaultNamespace("block/destroy_stage_9")).renderType(CUTOUT));
 	}
 
 	private ModelFile pedestalModel(String name, String north, String south, String west, String east, boolean active) {
@@ -1318,7 +1318,7 @@ public class BlockstateGenerator extends BlockModelBuilders {
 				.texture("all", prefix("block/" + TFBlocks.AURORA_BLOCK.getId().getPath() + "_" + i));
 		}
 
-		simpleBlock(TFBlocks.AURORA_BLOCK.get(), models().withExistingParent(TFBlocks.AURORA_BLOCK.getId().getPath(), new ResourceLocation("block/block"))
+		simpleBlock(TFBlocks.AURORA_BLOCK.get(), models().withExistingParent(TFBlocks.AURORA_BLOCK.getId().getPath(), ResourceLocation.withDefaultNamespace("block/block"))
 			.customLoader(NoiseVaryingModelBuilder::new).addAll(models).end());
 
 		ModelFile pillarModel = this.makeTintedBlockColumn(TFBlocks.AURORA_PILLAR.getId().getPath())
@@ -1430,9 +1430,9 @@ public class BlockstateGenerator extends BlockModelBuilders {
 	}
 
 	private void perFaceBlock(Block b, ResourceLocation inside, ResourceLocation outside) {
-		ModelFile modelInside = models().withExistingParent(name(b) + "_inside", new ResourceLocation("block/template_single_face"))
+		ModelFile modelInside = models().withExistingParent(name(b) + "_inside", ResourceLocation.withDefaultNamespace("block/template_single_face"))
 			.texture("texture", inside);
-		ModelFile modelOutside = models().withExistingParent(name(b) + "_outside", new ResourceLocation("block/template_single_face"))
+		ModelFile modelOutside = models().withExistingParent(name(b) + "_outside", ResourceLocation.withDefaultNamespace("block/template_single_face"))
 			.texture("texture", outside);
 		getMultipartBuilder(b).part().modelFile(modelInside).addModel().condition(HugeMushroomBlock.NORTH, false).end();
 		getMultipartBuilder(b).part().modelFile(modelOutside).addModel().condition(HugeMushroomBlock.NORTH, true).end();
@@ -1454,7 +1454,7 @@ public class BlockstateGenerator extends BlockModelBuilders {
 	}
 
 	private BlockModelBuilder makeTerrorcottaCurvesModel(String type, int rotation) {
-		return this.models().withExistingParent(type + "_" + (rotation * 90), new ResourceLocation("block/cube"))
+		return this.models().withExistingParent(type + "_" + (rotation * 90), ResourceLocation.withDefaultNamespace("block/cube"))
 			.texture("particle", prefix("block/" + type + "_a"))
 			.texture("up", prefix("block/" + type + curvesSuffixForFacing(rotation, Direction.UP)))
 			.texture("down", prefix("block/" + type + curvesSuffixForFacing(rotation, Direction.DOWN)))
@@ -1504,7 +1504,7 @@ public class BlockstateGenerator extends BlockModelBuilders {
 	}
 
 	private BlockModelBuilder makeTerrorcottaLinesModel(String type, boolean rotated) {
-		return this.models().withExistingParent(type + "_" + (rotated ? 90 : 0), new ResourceLocation("block/cube"))
+		return this.models().withExistingParent(type + "_" + (rotated ? 90 : 0), ResourceLocation.withDefaultNamespace("block/cube"))
 			.texture("particle", prefix("block/" + type + "_a"))
 			.texture("up", prefix("block/" + type + linesSuffixForFacing(rotated, Direction.UP)))
 			.texture("down", prefix("block/" + type + linesSuffixForFacing(rotated, Direction.DOWN)))
@@ -1520,9 +1520,9 @@ public class BlockstateGenerator extends BlockModelBuilders {
 	}
 
 	private void hollowLogs(Block originalLog, Block strippedLog, DeferredHolder<Block, HollowLogHorizontal> horizontalHollowLog, DeferredHolder<Block, HollowLogVertical> verticalHollowLog, DeferredHolder<Block, HollowLogClimbable> climbableHollowLog, ModelFile emptyLog, ModelFile mossLog, ModelFile grassLog, ModelFile snowLog, ModelFile hollowLog, ModelFile vineLog, ModelFile ladderLog) {
-		ResourceLocation top = new ResourceLocation("block/" + name(originalLog) + "_top");
-		ResourceLocation side = new ResourceLocation("block/" + name(originalLog));
-		ResourceLocation inner = new ResourceLocation("block/" + name(strippedLog));
+		ResourceLocation top = ResourceLocation.withDefaultNamespace("block/" + name(originalLog) + "_top");
+		ResourceLocation side = ResourceLocation.withDefaultNamespace("block/" + name(originalLog));
+		ResourceLocation inner = ResourceLocation.withDefaultNamespace("block/" + name(strippedLog));
 
 		this.getVariantBuilder(horizontalHollowLog.get()).forAllStates(state -> ConfiguredModel.builder().modelFile((switch (state.getValue(HollowLogHorizontal.VARIANT)) {
 			case MOSS -> models().getBuilder(horizontalHollowLog.getId().getPath() + "_moss").parent(mossLog);

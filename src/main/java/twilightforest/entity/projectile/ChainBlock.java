@@ -1,13 +1,16 @@
 package twilightforest.entity.projectile;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -31,6 +34,7 @@ import net.neoforged.neoforge.entity.IEntityWithComplexSpawn;
 import net.neoforged.neoforge.entity.PartEntity;
 import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.event.level.BlockEvent;
+import org.jetbrains.annotations.Nullable;
 import twilightforest.data.tags.BlockTagGenerator;
 import twilightforest.init.TFDamageTypes;
 import twilightforest.init.TFEnchantments;
@@ -46,23 +50,20 @@ public class ChainBlock extends ThrowableProjectile implements IEntityWithComple
 	private static final EntityDataAccessor<Boolean> HAND = SynchedEntityData.defineId(ChainBlock.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> IS_FOIL = SynchedEntityData.defineId(ChainBlock.class, EntityDataSerializers.BOOLEAN);
 	private boolean isReturning = false;
-	private boolean canSmashBlocks;
 	private boolean hitEntity = false;
+	@Nullable
 	private ItemStack stack;
-	private int blocksSmashed = 0;
 	private double velX;
 	private double velY;
 	private double velZ;
 
-	public ChainBlock(EntityType<? extends ChainBlock> type, Level world) {
-		super(type, world);
+	public ChainBlock(EntityType<? extends ChainBlock> type, Level level) {
+		super(type, level);
 	}
 
-	@SuppressWarnings("this-escape")
-	public ChainBlock(EntityType<? extends ChainBlock> type, Level world, LivingEntity thrower, InteractionHand hand, ItemStack stack) {
-		super(type, thrower, world);
+	public ChainBlock(EntityType<? extends ChainBlock> type, Level level, LivingEntity thrower, InteractionHand hand, ItemStack stack) {
+		super(type, thrower, level);
 		this.isReturning = false;
-		this.canSmashBlocks = EnchantmentHelper.getEnchantmentLevel(TFEnchantments.DESTRUCTION.get(), thrower) > 0 && !thrower.hasEffect(MobEffects.DIG_SLOWDOWN);
 		this.stack = stack;
 		this.setHand(hand);
 		this.shootFromRotation(thrower, thrower.getXRot(), thrower.getYRot(), 0.0F, 1.5F, 1.0F);
@@ -82,7 +83,7 @@ public class ChainBlock extends ThrowableProjectile implements IEntityWithComple
 	}
 
 	@Override
-	public boolean canChangeDimensions() {
+	public boolean canUsePortal(boolean p_352918_) {
 		return false;
 	}
 
@@ -107,11 +108,14 @@ public class ChainBlock extends ThrowableProjectile implements IEntityWithComple
 		// only hit living things & inside the world border
 		Level level = this.level();
 		if (!level.isClientSide() && result.getEntity() != this.getOwner() && level.getWorldBorder().isWithinBounds(result.getEntity().blockPosition())) {
-			float damage = 0.0F;
-			if (result.getEntity() instanceof LivingEntity living) {
-				damage = 10 + EnchantmentHelper.getDamageBonus(this.stack, living.getType());
-			} else if (result.getEntity() instanceof PartEntity<?> part && part.getParent() instanceof LivingEntity living) {
-				damage = 10 + EnchantmentHelper.getDamageBonus(this.stack, living.getType());
+			float damage = 10.0F;
+			DamageSource source = TFDamageTypes.getIndirectEntityDamageSource(level, TFDamageTypes.SPIKED, this, this.getOwner());
+			if (stack != null) {
+				if (result.getEntity() instanceof LivingEntity living) {
+					damage = EnchantmentHelper.modifyDamage((ServerLevel) level, this.stack, living, source, damage);
+				} else if (result.getEntity() instanceof PartEntity<?> part && part.getParent() instanceof LivingEntity living) {
+					damage = EnchantmentHelper.modifyDamage((ServerLevel) level, this.stack, living, source, damage);
+				}
 			}
 
 			//properly disable shields
@@ -121,7 +125,7 @@ public class ChainBlock extends ThrowableProjectile implements IEntityWithComple
 			}
 
 			if (damage > 0.0F) {
-				if (result.getEntity().hurt(TFDamageTypes.getIndirectEntityDamageSource(level, TFDamageTypes.SPIKED, this, this.getOwner()), damage)) {
+				if (result.getEntity().hurt(source, damage)) {
 					this.playSound(TFSounds.BLOCK_AND_CHAIN_HIT.get(), 1.0f, this.random.nextFloat());
 					// age when we hit a monster so that we go back to the player faster
 					this.hitEntity = true;
@@ -143,9 +147,23 @@ public class ChainBlock extends ThrowableProjectile implements IEntityWithComple
 		if (!level.isClientSide()) {
 			BlockState state = level.getBlockState(pos);
 			boolean restrictedPlaceMode = this.getOwner() instanceof ServerPlayer player && player.gameMode.getGameModeForPlayer().isBlockPlacingRestricted();
-			if (!state.isAir() && !this.canBreakBlockAt(pos, state, restrictedPlaceMode)) {
+			if (!state.isAir() && this.stack != null && !canBreakBlockAt(level, pos, state, this.stack, restrictedPlaceMode)) {
+				if (this.level() instanceof ServerLevel serverlevel) {
+					Vec3 vec3 = result.getBlockPos().clampLocationWithin(result.getLocation());
+					EnchantmentHelper.onHitBlock(
+						serverlevel,
+						this.stack,
+						this.getOwner() instanceof LivingEntity livingentity ? livingentity : null,
+						this,
+						null,
+						vec3,
+						level.getBlockState(result.getBlockPos()),
+						item -> this.kill()
+					);
+				}
+
 				if (!this.isReturning && !this.hitEntity) {
-					this.playSound(TFSounds.BLOCK_AND_CHAIN_COLLIDE.get(), 0.125f, this.random.nextFloat());
+					this.playSound(TFSounds.BLOCK_AND_CHAIN_COLLIDE.get(), 0.125F, this.random.nextFloat());
 					this.gameEvent(GameEvent.HIT_GROUND);
 				}
 
@@ -191,54 +209,19 @@ public class ChainBlock extends ThrowableProjectile implements IEntityWithComple
 						break;
 				}
 			}
-
-			if (this.canSmashBlocks) {
-				// demolish some blocks
-				AABB aabb = this.getBoundingBox().inflate(0.25D);
-				//I don't know why, and I can't find out why, but we have to subtract the coordinates by 0.5 here.
-				//Otherwise, it will sometimes not break blocks when hitting west, and always break too many when hitting east.
-				this.affectBlocksInAABB(aabb.move(result.getLocation().subtract(aabb.getCenter()).add(-0.5D, 0D, 0D)));
-			}
-		}
-
-		// if we have smashed enough, add to ticks so that we go back faster
-		if (this.blocksSmashed > MAX_SMASH) {
-			this.isReturning = true;
-			if (this.tickCount < 60) {
-				this.tickCount += 60;
-			}
 		}
 	}
 
-	private boolean canBreakBlockAt(BlockPos pos, BlockState state, boolean restrictedPlaceMode) {
-		Level level = this.level();
-
-		return level.getWorldBorder().isWithinBounds(pos) && this.stack.isCorrectToolForDrops(state) && !state.is(BlockTagGenerator.BLOCK_AND_CHAIN_NEVER_BREAKS)
-			&& (!restrictedPlaceMode || this.stack.canBreakBlockInAdventureMode(new BlockInWorld(level, pos, false)));
+	public void retractBlock() {
+		this.isReturning = true;
+		if (this.tickCount < 60) {
+			this.tickCount += 60;
+		}
 	}
 
-	private void affectBlocksInAABB(AABB box) {
-		if (this.getOwner() instanceof ServerPlayer player) {
-			boolean creative = player.getAbilities().instabuild;
-
-			for (BlockPos pos : WorldUtil.getAllInBB(box)) {
-				BlockState state = this.level().getBlockState(pos);
-				Block block = state.getBlock();
-
-				if (!state.isAir() && this.canBreakBlockAt(pos, state, player.gameMode.getGameModeForPlayer().isBlockPlacingRestricted()) && block.canEntityDestroy(state, this.level(), pos, this)) {
-					if (!NeoForge.EVENT_BUS.post(new BlockEvent.BreakEvent(this.level(), pos, state, player)).isCanceled()) {
-						if (EventHooks.doPlayerHarvestCheck(player, state, this.level(), pos)) {
-							this.level().destroyBlock(pos, false);
-							if (!creative) block.playerDestroy(this.level(), player, pos, state, this.level().getBlockEntity(pos), player.getItemInHand(this.getHand()));
-							this.blocksSmashed++;
-							if (this.blocksSmashed > MAX_SMASH) {
-								break;
-							}
-						}
-					}
-				}
-			}
-		}
+	public static boolean canBreakBlockAt(Level level, BlockPos pos, BlockState state, ItemStack stack, boolean restrictedPlaceMode) {
+		return level.getWorldBorder().isWithinBounds(pos) && stack.isCorrectToolForDrops(state)
+			&& (!restrictedPlaceMode || stack.canBreakBlockInAdventureMode(new BlockInWorld(level, pos, false)));
 	}
 
 	@Override
@@ -258,9 +241,6 @@ public class ChainBlock extends ThrowableProjectile implements IEntityWithComple
 				if (this.isReturning) {
 					// despawn if close enough
 					if (distToPlayer < 2F) {
-						if (this.getOwner() instanceof LivingEntity living && this.blocksSmashed > 0) {
-							this.stack.hurtAndBreak(Math.min(this.blocksSmashed, 3), living, LivingEntity.getSlotForHand(this.getHand()));
-						}
 						this.discard();
 					}
 

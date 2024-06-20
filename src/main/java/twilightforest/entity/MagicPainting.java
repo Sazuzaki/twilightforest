@@ -12,14 +12,17 @@ import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerEntity;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.decoration.HangingEntity;
+import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import twilightforest.TFRegistries;
@@ -129,13 +132,23 @@ public class MagicPainting extends HangingEntity {
 	}
 
 	@Override
-	public int getWidth() {
-		return this.getVariant().value().width();
+	protected AABB calculateBoundingBox(BlockPos pos, Direction direction) {
+		float f = 0.46875F;
+		Vec3 vec3 = Vec3.atCenterOf(pos).relative(direction, -0.46875D);
+		MagicPaintingVariant variant = this.getVariant().value();
+		double d0 = this.offsetForPaintingSize(variant.width());
+		double d1 = this.offsetForPaintingSize(variant.height());
+		Direction ccdir = direction.getCounterClockWise();
+		Vec3 vec31 = vec3.relative(ccdir, d0).relative(Direction.UP, d1);
+		Direction.Axis axis = direction.getAxis();
+		double d2 = axis == Direction.Axis.X ? 0.0625D : variant.width();
+		double d3 = variant.height();
+		double d4 = axis == Direction.Axis.Z ? 0.0625D : variant.width();
+		return AABB.ofSize(vec31, d2, d3, d4);
 	}
 
-	@Override
-	public int getHeight() {
-		return this.getVariant().value().height();
+	private double offsetForPaintingSize(int size) {
+		return size % 2 == 0 ? 0.5D : 0.0D;
 	}
 
 	@Override
@@ -173,7 +186,7 @@ public class MagicPainting extends HangingEntity {
 	}
 
 	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket() {
+	public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
 		return new ClientboundAddEntityPacket(this, this.direction.get3DDataValue(), this.getPos());
 	}
 

@@ -10,6 +10,7 @@ import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.VarInsnNode;
+import twilightforest.asm.AsmUtil;
 
 import java.util.Set;
 
@@ -20,24 +21,26 @@ public class ArmorColorRenderingTransformer implements ITransformer<MethodNode> 
 
 	@Override
 	public @NotNull MethodNode transform(MethodNode node, ITransformerVotingContext context) {
-		node.instructions.insert(
-			ASMAPI.findFirstMethodCall(
+		AsmUtil.findMethodInstructions(
 				node,
-				ASMAPI.MethodType.STATIC,
+				Opcodes.INVOKESTATIC,
 				"net/minecraft/world/item/component/DyedItemColor",
 				"getOrDefault",
-				"(Lnet/minecraft/world/item/ItemStack;I)I"
-			),
-			ASMAPI.listOf(
-				new VarInsnNode(Opcodes.ALOAD, 8),
-				new VarInsnNode(Opcodes.ALOAD, 7),
-				new MethodInsnNode(Opcodes.INVOKESTATIC,
-					"twilightforest/ASMHooks",
-					"armorColorRendering",
-					"(ILnet/minecraft/world/item/ArmorItem;Lnet/minecraft/world/item/ItemStack;)I"
+				"(Lnet/minecraft/world/item/ItemStack;I)I")
+			.findFirst()
+			.ifPresent(target -> node.instructions.insert(
+				target,
+				ASMAPI.listOf(
+					new VarInsnNode(Opcodes.ALOAD, 8),
+					new VarInsnNode(Opcodes.ALOAD, 7),
+					new MethodInsnNode(
+						Opcodes.INVOKESTATIC,
+						"twilightforest/ASMHooks",
+						"armorColorRendering",
+						"(ILnet/minecraft/world/item/ArmorItem;Lnet/minecraft/world/item/ItemStack;)I"
+					)
 				)
-			)
-		);
+			));
 		return node;
 	}
 

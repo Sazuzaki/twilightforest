@@ -7,6 +7,7 @@ import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.VarInsnNode;
+import twilightforest.asm.AsmUtil;
 
 import java.util.Set;
 
@@ -17,17 +18,20 @@ public class CancelArmorRenderingTransformer implements ITransformer<MethodNode>
 
 	@Override
 	public @NotNull MethodNode transform(MethodNode node, ITransformerVotingContext context) {
-		node.instructions.insert(
-			ASMAPI.findFirstInstruction(node, Opcodes.INSTANCEOF),
-			ASMAPI.listOf(
-				new VarInsnNode(Opcodes.ALOAD, 7),
-				new MethodInsnNode(Opcodes.INVOKESTATIC,
-					"twilightforest/ASMHooks",
-					"cancelArmorRendering",
-					"(ZLnet/minecraft/world/item/ItemStack;)Z"
+		AsmUtil.findInstructions(node, Opcodes.INSTANCEOF)
+			.findFirst()
+			.ifPresent(target -> node.instructions.insert(
+				target,
+				ASMAPI.listOf(
+					new VarInsnNode(Opcodes.ALOAD, 7),
+					new MethodInsnNode(
+						Opcodes.INVOKESTATIC,
+						"twilightforest/ASMHooks",
+						"cancelArmorRendering",
+						"(ZLnet/minecraft/world/item/ItemStack;)Z"
+					)
 				)
-			)
-		);
+			));
 		return node;
 	}
 

@@ -55,7 +55,7 @@ public class UberousSoilBlock extends Block implements BonemealableBlock {
 
 	@Override
 	public boolean canSustainPlant(BlockState state, BlockGetter getter, BlockPos pos, Direction direction, IPlantable plantable) {
-		if (direction != Direction.UP) return false;
+		if (direction.getAxis() != Direction.Axis.Y) return false;
 		PlantType plantType = plantable.getPlantType(getter, pos.relative(direction));
 		return plantType == PlantType.CROP || plantType == PlantType.PLAINS || plantType == PlantType.CAVE;
 	}
@@ -113,6 +113,23 @@ public class UberousSoilBlock extends Block implements BonemealableBlock {
 					for (int i = 0; i < 15; i++)
 						BoneMealItem.applyBonemeal(new ItemStack(Items.BONE_MEAL), serverLevel, fromPos, fakePlayer);
 				}));
+			}
+
+			level.levelEvent(2005, fromPos, 0);
+		} else if (fromPos.getY() + 1 == pos.getY()) {
+			BlockState below = level.getBlockState(fromPos);
+			if (!(below.getBlock() instanceof BonemealableBlock)) return;
+
+			level.setBlockAndUpdate(pos, pushEntitiesUp(state, Blocks.DIRT.defaultBlockState(), level, pos));
+
+			if (level instanceof ServerLevel serverLevel) {
+				MinecraftServer server = serverLevel.getServer();
+				FakePlayer fakePlayer = FakePlayerFactory.getMinecraft(serverLevel);
+				server.tell(new TickTask(server.getTickCount(), () -> {
+					for (int i = 0; i < 15; i++) BoneMealItem.applyBonemeal(new ItemStack(Items.BONE_MEAL), serverLevel, fromPos, fakePlayer);
+				}));
+
+				level.levelEvent(1505, fromPos, 15); // Bonemeal particles
 			}
 
 			level.levelEvent(2005, fromPos, 0);

@@ -42,8 +42,6 @@ public class ToolEvents {
 	private static final int KNIGHTMETAL_BONUS_DAMAGE = 2;
 	private static final int MINOTAUR_AXE_BONUS_DAMAGE = 7;
 
-	public static InteractionHand INTERACTION_HAND;
-
 	@SubscribeEvent
 	public static void onEnderBowHit(ProjectileImpactEvent evt) {
 		Projectile arrow = evt.getProjectile();
@@ -142,73 +140,5 @@ public class ToolEvents {
 		if (event.getEffectInstance() != null && event.getEffectInstance().is(MobEffects.DIG_SLOWDOWN) && event.getEntity().isHolding(TFItems.POCKET_WATCH.get())) {
 			event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
 		} else event.setResult(MobEffectEvent.Applicable.Result.DEFAULT);
-	}
-
-	@SubscribeEvent
-	public static void giantToolEntityInteractSpecific(PlayerInteractEvent.EntityInteractSpecific event) {
-		checkEntityTooFar(event, event.getTarget(), event.getEntity(), event.getHand());
-	}
-
-	@SubscribeEvent
-	public static void giantToolEntityInteract(PlayerInteractEvent.EntityInteract event) {
-		checkEntityTooFar(event, event.getTarget(), event.getEntity(), event.getHand());
-	}
-
-	@SubscribeEvent
-	public static void giantToolBlockInteract(PlayerInteractEvent.RightClickBlock event) {
-		checkBlockTooFar(event, event.getEntity(), event.getHand());
-	}
-
-	@SubscribeEvent
-	public static void giantToolItemInteract(PlayerInteractEvent.RightClickItem event) {
-		INTERACTION_HAND = event.getHand();
-	}
-
-	private static void checkEntityTooFar(PlayerInteractEvent event, Entity target, Player player, InteractionHand hand) {
-		if (event instanceof ICancellableEvent cancellable && !cancellable.isCanceled()) {
-			ItemStack heldStack = player.getItemInHand(hand);
-			if (hasGiantItemInOneHand(player) && !(heldStack.getItem() instanceof GiantItem) && hand == InteractionHand.OFF_HAND) {
-				UUID uuidForOppositeHand = GiantItem.GIANT_RANGE_MODIFIER;
-				AttributeInstance attackRange = player.getAttribute(Attributes.ENTITY_INTERACTION_RANGE);
-				if (attackRange != null) {
-					AttributeModifier giantModifier = attackRange.getModifier(uuidForOppositeHand);
-					if (giantModifier != null) {
-						attackRange.removeModifier(giantModifier);
-						double range = player.getAttributeValue(Attributes.ENTITY_INTERACTION_RANGE);
-						double trueReach = range == 0 ? 0 : range + (player.isCreative() ? 3 : 0); // Copied from IForgePlayer#getAttackRange().
-						boolean tooFar = !player.isCloseEnough(target, trueReach);
-						attackRange.addTransientModifier(giantModifier);
-						cancellable.setCanceled(tooFar);
-					}
-				}
-			}
-		}
-	}
-
-	private static void checkBlockTooFar(PlayerInteractEvent event, Player player, InteractionHand hand) {
-		if (event instanceof ICancellableEvent cancellable && !cancellable.isCanceled()) {
-			ItemStack heldStack = player.getItemInHand(hand);
-			if (hasGiantItemInOneHand(player) && !(heldStack.getItem() instanceof GiantItem) && hand == InteractionHand.OFF_HAND) {
-				UUID uuidForOppositeHand = GiantItem.GIANT_REACH_MODIFIER;
-				AttributeInstance reachDistance = player.getAttribute(Attributes.BLOCK_INTERACTION_RANGE);
-				if (reachDistance != null) {
-					AttributeModifier giantModifier = reachDistance.getModifier(uuidForOppositeHand);
-					if (giantModifier != null) {
-						reachDistance.removeModifier(giantModifier);
-						double reach = player.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE);
-						double trueReach = reach == 0 ? 0 : reach + (player.isCreative() ? 0.5 : 0); // Copied from IForgePlayer#getReachDistance().
-						boolean tooFar = player.pick(trueReach, 0.0F, false).getType() != HitResult.Type.BLOCK;
-						reachDistance.addTransientModifier(giantModifier);
-						cancellable.setCanceled(tooFar);
-					}
-				}
-			}
-		}
-	}
-
-	public static boolean hasGiantItemInOneHand(Player player) {
-		ItemStack mainHandStack = player.getMainHandItem();
-		ItemStack offHandStack = player.getOffhandItem();
-		return (mainHandStack.getItem() instanceof GiantItem && !(offHandStack.getItem() instanceof GiantItem));
 	}
 }

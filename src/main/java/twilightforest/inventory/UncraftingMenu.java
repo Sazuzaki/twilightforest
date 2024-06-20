@@ -39,7 +39,7 @@ import twilightforest.util.TFItemStackUtils;
 
 import java.util.*;
 
-public class UncraftingMenu extends RecipeBookMenu<CraftingContainer> {
+public class UncraftingMenu extends RecipeBookMenu<RecipeInput, Recipe<RecipeInput>> {
 
 	private static final String TAG_MARKER = "TwilightForestMarker";
 
@@ -205,7 +205,7 @@ public class UncraftingMenu extends RecipeBookMenu<CraftingContainer> {
 		if (inventory == this.assemblyMatrix || inventory == this.tinkerInput) {
 			if (this.tinkerInput.isEmpty()) {
 				// display the output
-				this.chooseRecipe(this.assemblyMatrix);
+				this.chooseRecipe(this.assemblyMatrix.asCraftInput());
 			} else {
 				// we placed an item in the assembly matrix, the next step will re-initialize these with correct values
 				this.tinkerResult.setItem(0, ItemStack.EMPTY);
@@ -231,7 +231,7 @@ public class UncraftingMenu extends RecipeBookMenu<CraftingContainer> {
 				}
 			}
 			// is there a result from this combined thing?
-			this.chooseRecipe(this.combineMatrix);
+			this.chooseRecipe(this.combineMatrix.asCraftInput());
 
 			ItemStack input = this.tinkerInput.getItem(0);
 			ItemStack result = this.tinkerResult.getItem(0);
@@ -241,7 +241,7 @@ public class UncraftingMenu extends RecipeBookMenu<CraftingContainer> {
 				ItemEnchantments.Mutable enchants = new ItemEnchantments.Mutable(input.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY));
 				//add all resulting item enchants to the list. This allows pre-enchanted gear to keep its enchants
 				if (result.has(DataComponents.ENCHANTMENTS)) {
-					result.get(DataComponents.ENCHANTMENTS).entrySet().forEach(enchantment -> enchants.set(enchantment.getKey().value(), enchantment.getIntValue()));
+					result.get(DataComponents.ENCHANTMENTS).entrySet().forEach(enchantment -> enchants.set(enchantment.getKey(), enchantment.getIntValue()));
 				}
 				//remove any incompatible enchants
 				enchants.removeIf(holder -> !holder.value().canEnchant(result));
@@ -316,13 +316,13 @@ public class UncraftingMenu extends RecipeBookMenu<CraftingContainer> {
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
-	private static RecipeHolder<CraftingRecipe>[] getRecipesFor(CraftingContainer matrix, Level world) {
-		return world.getRecipeManager().getRecipesFor(RecipeType.CRAFTING, matrix, world).toArray(new RecipeHolder[0]);
+	private static RecipeHolder<CraftingRecipe>[] getRecipesFor(CraftingInput input, Level level) {
+		return level.getRecipeManager().getRecipesFor(RecipeType.CRAFTING, input, level).toArray(new RecipeHolder[0]);
 	}
 
-	private void chooseRecipe(CraftingContainer inventory) {
+	private void chooseRecipe(CraftingInput input) {
 
-		RecipeHolder<CraftingRecipe>[] recipes = getRecipesFor(inventory, this.level);
+		RecipeHolder<CraftingRecipe>[] recipes = getRecipesFor(input, this.level);
 
 		if (recipes.length == 0) {
 			this.tinkerResult.setItem(0, ItemStack.EMPTY);
@@ -333,7 +333,7 @@ public class UncraftingMenu extends RecipeBookMenu<CraftingContainer> {
 
 		if (recipe != null && (!this.level.getGameRules().getBoolean(GameRules.RULE_LIMITED_CRAFTING) || ((ServerPlayer) this.player).getRecipeBook().contains(recipe.id()))) {
 			this.tinkerResult.setRecipeUsed(recipe);
-			this.tinkerResult.setItem(0, recipe.value().assemble(inventory, this.level.registryAccess()));
+			this.tinkerResult.setItem(0, recipe.value().assemble(input, this.level.registryAccess()));
 		} else {
 			this.tinkerResult.setItem(0, ItemStack.EMPTY);
 		}
@@ -358,13 +358,13 @@ public class UncraftingMenu extends RecipeBookMenu<CraftingContainer> {
 		if (inputStack.is(ItemTags.SWORDS) && resultStack.is(ItemTags.SWORDS)) {
 			return true;
 		}
-		if (inputStack.is(Tags.Items.TOOLS_BOWS) && resultStack.is(Tags.Items.TOOLS_BOWS)) {
+		if (inputStack.is(Tags.Items.TOOLS_BOW) && resultStack.is(Tags.Items.TOOLS_BOW)) {
 			return true;
 		}
-		if (inputStack.is(Tags.Items.TOOLS_CROSSBOWS) && resultStack.is(Tags.Items.TOOLS_CROSSBOWS)) {
+		if (inputStack.is(Tags.Items.TOOLS_CROSSBOW) && resultStack.is(Tags.Items.TOOLS_CROSSBOW)) {
 			return true;
 		}
-		if (inputStack.is(Tags.Items.TOOLS_FISHING_RODS) && resultStack.is(Tags.Items.TOOLS_FISHING_RODS)) {
+		if (inputStack.is(Tags.Items.TOOLS_FISHING_ROD) && resultStack.is(Tags.Items.TOOLS_FISHING_ROD)) {
 			return true;
 		}
 
@@ -656,13 +656,13 @@ public class UncraftingMenu extends RecipeBookMenu<CraftingContainer> {
 	}
 
 	@Override
-	public boolean recipeMatches(RecipeHolder<? extends Recipe<CraftingContainer>> recipeHolder) {
-		return recipeHolder.value().matches(this.assemblyMatrix, this.player.level());
+	public boolean recipeMatches(RecipeHolder<Recipe<RecipeInput>> recipeHolder) {
+		return recipeHolder.value().matches(this.assemblyMatrix.asCraftInput(), this.player.level());
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes", "RedundantSuppression"})
 	@Override
 	public void handlePlacement(boolean placeAll, RecipeHolder<?> recipe, ServerPlayer player) {
-		new UncrafterPlaceRecipe<>(this).recipeClicked(player, (RecipeHolder<? extends Recipe<CraftingContainer>>) recipe, placeAll);
+		new UncrafterPlaceRecipe<>(this).recipeClicked(player, (RecipeHolder<Recipe<RecipeInput>>) recipe, placeAll);
 	}
 }

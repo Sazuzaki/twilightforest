@@ -17,16 +17,15 @@ import twilightforest.init.TFRecipes;
 
 import java.util.Arrays;
 
-public record UncraftingRecipe(int cost, Ingredient input, int count,
-							   ShapedRecipePattern pattern) implements CraftingRecipe, IShapedRecipe<CraftingContainer> {
+public record UncraftingRecipe(int cost, Ingredient input, int count, ShapedRecipePattern pattern) implements CraftingRecipe, IShapedRecipe<CraftingInput> {
 
 	@Override //This method is never used, but it has to be implemented
-	public boolean matches(CraftingContainer container, Level level) {
+	public boolean matches(CraftingInput input, Level level) {
 		return false;
 	}
 
 	@Override //We have to implement this method, can't really be used since we have multiple outputs
-	public ItemStack assemble(CraftingContainer container, HolderLookup.Provider provider) {
+	public ItemStack assemble(CraftingInput input, HolderLookup.Provider provider) {
 		return ItemStack.EMPTY;
 	}
 

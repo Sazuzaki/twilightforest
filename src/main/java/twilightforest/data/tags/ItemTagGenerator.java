@@ -230,17 +230,6 @@ public class ItemTagGenerator extends ModdedItemTagGenerator {
 		this.tag(SQUIRREL_TEMPT_ITEMS).addTag(Tags.Items.SEEDS);
 		this.tag(TINY_BIRD_TEMPT_ITEMS).addTag(Tags.Items.SEEDS);
 
-		this.tag(ItemTags.MUSIC_DISCS).add(
-			TFItems.MUSIC_DISC_FINDINGS.get(),
-			TFItems.MUSIC_DISC_HOME.get(),
-			TFItems.MUSIC_DISC_MAKER.get(),
-			TFItems.MUSIC_DISC_MOTION.get(),
-			TFItems.MUSIC_DISC_RADIANCE.get(),
-			TFItems.MUSIC_DISC_STEPS.get(),
-			TFItems.MUSIC_DISC_SUPERSTITIOUS.get(),
-			TFItems.MUSIC_DISC_THREAD.get(),
-			TFItems.MUSIC_DISC_WAYFARER.get());
-
 		this.tag(BANNED_UNCRAFTING_INGREDIENTS).add(
 			TFBlocks.INFESTED_TOWERWOOD.get().asItem(),
 			TFBlocks.HOLLOW_OAK_SAPLING.get().asItem(),
@@ -329,8 +318,8 @@ public class ItemTagGenerator extends ModdedItemTagGenerator {
 		this.tag(ItemTags.AXES).add(TFItems.IRONWOOD_AXE.get(), TFItems.STEELEAF_AXE.get(), TFItems.KNIGHTMETAL_AXE.get());
 		this.tag(ItemTags.SHOVELS).add(TFItems.IRONWOOD_SHOVEL.get(), TFItems.STEELEAF_SHOVEL.get());
 		this.tag(ItemTags.HOES).add(TFItems.IRONWOOD_HOE.get(), TFItems.STEELEAF_HOE.get());
-		this.tag(Tags.Items.TOOLS_SHIELDS).add(TFItems.KNIGHTMETAL_SHIELD.get());
-		this.tag(Tags.Items.TOOLS_BOWS).add(TFItems.TRIPLE_BOW.get(), TFItems.SEEKER_BOW.get(), TFItems.ICE_BOW.get(), TFItems.ENDER_BOW.get());
+		this.tag(Tags.Items.TOOLS_SHIELD).add(TFItems.KNIGHTMETAL_SHIELD.get());
+		this.tag(Tags.Items.TOOLS_BOW).add(TFItems.TRIPLE_BOW.get(), TFItems.SEEKER_BOW.get(), TFItems.ICE_BOW.get(), TFItems.ENDER_BOW.get());
 
 		this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES).add(
 			TFItems.IRONWOOD_PICKAXE.get(),
@@ -419,7 +408,7 @@ public class ItemTagGenerator extends ModdedItemTagGenerator {
 	}
 
 	public static TagKey<Item> makeCommonTag(String tagName) {
-		return ItemTags.create(new ResourceLocation("c", tagName));
+		return ItemTags.create(ResourceLocation.fromNamespaceAndPath("c", tagName));
 	}
 
 	@Override

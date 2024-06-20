@@ -106,7 +106,7 @@ public class TFTickHandler {
 	}
 
 	private static void checkForPortalCreation(ServerPlayer player, Level world, float rangeToCheck) {
-		if (world.dimension().location().equals(new ResourceLocation(TFConfig.originDimension))
+		if (world.dimension().location().equals(ResourceLocation.parse(TFConfig.originDimension))
 			|| TFDimension.isTwilightPortalDestination(world)
 			|| TFConfig.allowPortalsInOtherDimensions) {
 

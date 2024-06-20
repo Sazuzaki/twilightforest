@@ -41,7 +41,7 @@ public class UncraftingResultSlot extends ResultSlot {
 		//clear the temp map, just in case
 		this.tempRemainderMap.clear();
 
-		for (RecipeHolder<CraftingRecipe> recipe : player.level().getRecipeManager().getRecipesFor(RecipeType.CRAFTING, this.assemblyMatrix, this.player.level())) {
+		for (RecipeHolder<CraftingRecipe> recipe : player.level().getRecipeManager().getRecipesFor(RecipeType.CRAFTING, this.assemblyMatrix.asCraftInput(), this.player.level())) {
 			if (ItemStack.isSameItemSameComponents(recipe.value().getResultItem(player.level().registryAccess()), stack)) {
 				combined = false;
 				break;
@@ -72,7 +72,7 @@ public class UncraftingResultSlot extends ResultSlot {
 		this.checkTakeAchievements(stack);
 
 		CommonHooks.setCraftingPlayer(player);
-		NonNullList<ItemStack> remainingItems = player.level().getRecipeManager().getRemainingItemsFor(RecipeType.CRAFTING, this.assemblyMatrix, player.level());
+		NonNullList<ItemStack> remainingItems = player.level().getRecipeManager().getRemainingItemsFor(RecipeType.CRAFTING, this.assemblyMatrix.asCraftInput(), player.level());
 		CommonHooks.setCraftingPlayer(null);
 
 		for (int i = 0; i < remainingItems.size(); ++i) {

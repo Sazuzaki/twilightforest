@@ -92,16 +92,18 @@ public class MegaOakTreeFeature extends CanopyTreeFeature {
 			FeaturePlacers.placeIfValidTreePos(world, trunkPlacer, rand, pos.offset(1, dy, 1), config.trunkProvider);
 		}
 
-		if (rand.nextInt(3) == 0) {
-			Direction direction = Direction.getRandom(rand);
-			Direction.Axis axis = direction.getAxis();
-			if (axis != Direction.Axis.Y) {
-				BlockPos.MutableBlockPos bugPos = new BlockPos.MutableBlockPos();
-				bugPos.set(pos.offset(direction == Direction.EAST ? 1 : 0, rand.nextInt(treeHeight) / 2 + 10, direction == Direction.SOUTH ? 1 : 0));
-				bugPos.move(direction).move(axis == Direction.Axis.Z ? rand.nextInt(2) : 0, 0, axis == Direction.Axis.X ? rand.nextInt(2) : 0);
-				if (!world.getBlockState(bugPos).isSolidRender(world, bugPos)) {
-					BlockState bugState = TFBlocks.FIREFLY.get().defaultBlockState().setValue(DirectionalBlock.FACING, direction);
-					this.setBlock(world, bugPos, bugState);
+		for (int i = 0; i < 7; i++) {
+			if (rand.nextInt(3) == 0) {
+				Direction direction = Direction.getRandom(rand);
+				Direction.Axis axis = direction.getAxis();
+				if (axis != Direction.Axis.Y) {
+					BlockPos.MutableBlockPos bugPos = new BlockPos.MutableBlockPos();
+					bugPos.set(pos.offset(direction == Direction.EAST ? 1 : 0, rand.nextInt(treeHeight), direction == Direction.SOUTH ? 1 : 0));
+					bugPos.move(direction).move(axis == Direction.Axis.Z ? rand.nextInt(2) : 0, 0, axis == Direction.Axis.X ? rand.nextInt(2) : 0);
+					if (!world.getBlockState(bugPos).isSolidRender(world, bugPos)) {
+						BlockState bugState = TFBlocks.FIREFLY.get().defaultBlockState().setValue(DirectionalBlock.FACING, direction);
+						this.setBlock(world, bugPos, bugState);
+					}
 				}
 			}
 		}

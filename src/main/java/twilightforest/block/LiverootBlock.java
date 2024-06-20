@@ -1,6 +1,7 @@
 package twilightforest.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -30,8 +31,8 @@ public class LiverootBlock extends Block {
 			level.setBlockAndUpdate(pos, TFBlocks.ROOT_BLOCK.get().defaultBlockState());
 			int amountOfRoots = 1;
 			//fortune formula copied from ApplyBonusCount.OreDrops.calculateNewCount so it acts exactly like the loot table
-			if (stack.getEnchantmentLevel(Enchantments.FORTUNE) > 0) {
-				int i = level.getRandom().nextInt(stack.getEnchantmentLevel(Enchantments.FORTUNE) + 2) - 1;
+			if (stack.getEnchantmentLevel(level.registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchantments.FORTUNE)) > 0) {
+				int i = level.getRandom().nextInt(stack.getEnchantmentLevel(level.registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchantments.FORTUNE)) + 2) - 1;
 				if (i < 0) {
 					i = 0;
 				}

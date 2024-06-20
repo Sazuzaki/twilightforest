@@ -5,6 +5,7 @@ import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import it.unimi.dsi.fastutil.objects.ObjectListIterator;
 import net.minecraft.client.Camera;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.AbstractClientPlayer;
@@ -12,14 +13,13 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.level.WorldGenRegion;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.Musics;
 import net.minecraft.world.InteractionHand;
@@ -36,6 +36,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.StructureManager;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.levelgen.DensityFunction;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -74,10 +75,6 @@ import java.util.Optional;
 
 @SuppressWarnings({"JavadocReference", "unused", "RedundantSuppression", "deprecation"})
 public class ASMHooks {
-
-	public static void test() {
-		TwilightForestMod.LOGGER.info("test");
-	}
 
 	/**
 	 * Minecraft Overworld seed, unique and from the save's WorldOptions. A deep bastion for supporting many features unique to the Twilight Forest dimension.
@@ -119,7 +116,7 @@ public class ASMHooks {
 	 * [AFTER FIRST GETSTATIC {@link net.minecraft.world.item.Items#FILLED_MAP}]
 	 * <p></p>
 	 * Injection Point:<br>
-	 * {@link ItemFrame#getFramedMapId()} <br>
+	 * {@link ItemFrame#getFramedMapId(ItemStack)} <br>
 	 * [BEFORE FIRST IFEQ]
 	 */
 	public static boolean shouldMapRender(boolean o, ItemStack stack) {
@@ -178,17 +175,7 @@ public class ASMHooks {
 
 	/**
 	 * Injection Point:<br>
-	 * {@link net.minecraft.client.renderer.entity.EntityRenderDispatcher#onResourceManagerReload(ResourceManager)}<br>
-	 * [AFTER FIRST INVOKESPECIAL]
-	 */
-	public static EntityRendererProvider.Context bakeMultipartRenders(EntityRendererProvider.Context context) {
-		TFClientSetup.BakedMultiPartRenderers.bakeMultiPartRenderers(context);
-		return context;
-	}
-
-	/**
-	 * Injection Point:<br>
-	 * {@link net.minecraft.client.renderer.LevelRenderer#renderLevel(float, long, boolean, Camera, GameRenderer, LightTexture, Matrix4f, Matrix4f)}<br>
+	 * {@link net.minecraft.client.renderer.LevelRenderer#renderLevel(DeltaTracker, boolean, Camera, GameRenderer, LightTexture, Matrix4f, Matrix4f)}<br>
 	 * [AFTER {@link net.minecraft.client.multiplayer.ClientLevel#entitiesForRendering}]
 	 */
 	public static Iterable<Entity> renderMultiparts(Iterable<Entity> iter) {
@@ -237,11 +224,12 @@ public class ASMHooks {
 	}
 
 	/**
-	 * Injection Point:<br>
-	 * {@link net.minecraft.world.item.WrittenBookItem#getName(net.minecraft.world.item.ItemStack)}<br>
-	 * [BEFORE ARETURN]
+	 * {@link twilightforest.asm.transformers.book.ModifyWrittenBookNameTransformer}<p/>
+	 *
+	 * Injection Point:<br/>
+	 * {@link net.minecraft.world.item.WrittenBookItem#getName(net.minecraft.world.item.ItemStack)}
 	 */
-	public static Component book(Component component, ItemStack stack) {
+	public static Component modifyWrittenBookName(Component component, ItemStack stack) {
 		if (stack.has(TFDataComponents.TRANSLATABLE_BOOK)) {
 			return Component.translatable(component.getString());
 		} else return component;
@@ -297,13 +285,13 @@ public class ASMHooks {
 	}
 
 	/**
-	 * Injection Point:<br>
-	 * {@link net.minecraft.world.level.chunk.status.ChunkStatus#getStatusList()}<br>
-	 * [HEAD]
+	 * {@link twilightforest.asm.transformers.chunk.ChunkStatusTaskTransformer}<p/>
+	 *
+	 * Injection Point:<br/>
+	 * {@link net.minecraft.world.level.chunk.status.ChunkStatusTasks#generateSurface}
 	 */
-	public static void assertChunkBlanketing() {
-		// Only need to touch this class to ensure it's classloaded before other classes cache our reconstructed ChunkStatus sequence
-		ChunkBlanketProcessors.init();
+	public static void chunkBlanketing(ChunkAccess chunkAccess, WorldGenRegion worldGenRegion) {
+		ChunkBlanketProcessors.chunkBlanketing(chunkAccess, worldGenRegion);
 	}
 
 	/**
@@ -365,11 +353,12 @@ public class ASMHooks {
 	}
 
 	/**
-	 * Injection Point:<br>
-	 * {@link net.minecraft.world.entity.LivingEntity#getVisibilityPercent(Entity)} <br>
-	 * [BEFORE FIRST FSTORE 4]
+	 * {@link twilightforest.asm.transformers.armor.ArmorVisibilityRenderingTransformer}<p/>
+	 *
+	 * Injection Point:<br/>
+	 * {@link net.minecraft.world.entity.LivingEntity#getVisibilityPercent(Entity)}
 	 */
-	public static float modifyClothVisibility(float o, LivingEntity entity) {
+	public static float modifyArmorVisibility(float o, LivingEntity entity) {
 		return o - getShroudedArmorPercentage(entity);
 	}
 
