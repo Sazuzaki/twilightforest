@@ -48,7 +48,7 @@ public class FireflyTileEntityRenderer implements BlockEntityRenderer<FireflyBlo
 		VertexConsumer builder = buffer.getBuffer(RenderType.entityCutout(textureLoc));
 		fireflyModel.renderToBuffer(ms, builder, light, OverlayTexture.NO_OVERLAY);
 
-		builder = buffer.getBuffer(RenderType.entityTranslucent(textureLoc));
+		builder = buffer.getBuffer(RenderType.entityTranslucentEmissive(textureLoc));
 		fireflyModel.glow.render(ms, builder, 0xF000F0, OverlayTexture.NO_OVERLAY, FastColor.ARGB32.colorFromFloat(glow, 1.0F, 1.0F, 1.0F));
 
 		ms.popPose();

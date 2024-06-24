@@ -1,4 +1,4 @@
-package twilightforest.asm.transformers.armor;
+package twilightforest.asm.transformers.cloud;
 
 import cpw.mods.modlauncher.api.ITransformer;
 import cpw.mods.modlauncher.api.ITransformerVotingContext;
@@ -15,28 +15,25 @@ import twilightforest.asm.AsmUtil;
 import java.util.Set;
 
 /**
- * {@link twilightforest.ASMHooks#armorColorRendering}
+ * {@link twilightforest.ASMHooks#isRainingAt}
  */
-public class ArmorColorRenderingTransformer implements ITransformer<MethodNode> {
+public class IsRainingAtTransformer implements ITransformer<MethodNode> {
 
 	@Override
 	public @NotNull MethodNode transform(MethodNode node, ITransformerVotingContext context) {
-		AsmUtil.findMethodInstructions(
+		AsmUtil.findInstructions(
 			node,
-			Opcodes.INVOKESTATIC,
-			"net/minecraft/world/item/component/DyedItemColor",
-			"getOrDefault",
-			"(Lnet/minecraft/world/item/ItemStack;I)I"
-		).findFirst().ifPresent(target -> node.instructions.insert(
+			Opcodes.IRETURN
+		).forEach(target -> node.instructions.insertBefore(
 			target,
 			ASMAPI.listOf(
-				new VarInsnNode(Opcodes.ALOAD, 8),
-				new VarInsnNode(Opcodes.ALOAD, 7),
+				new VarInsnNode(Opcodes.ALOAD, 0),
+				new VarInsnNode(Opcodes.ALOAD, 1),
 				new MethodInsnNode(
 					Opcodes.INVOKESTATIC,
 					"twilightforest/ASMHooks",
-					"armorColorRendering",
-					"(ILnet/minecraft/world/item/ArmorItem;Lnet/minecraft/world/item/ItemStack;)I"
+					"isRainingAt",
+					"(ZLnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Z"
 				)
 			)
 		));
@@ -51,9 +48,9 @@ public class ArmorColorRenderingTransformer implements ITransformer<MethodNode> 
 	@Override
 	public @NotNull Set<Target<MethodNode>> targets() {
 		return Set.of(Target.targetMethod(
-			"net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer",
-			"renderArmorPiece",
-			"(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/entity/EquipmentSlot;ILnet/minecraft/client/model/HumanoidModel;)V"
+			"net.minecraft.world.level.Level",
+			"isRainingAt",
+			"(Lnet/minecraft/core/BlockPos;)Z"
 		));
 	}
 

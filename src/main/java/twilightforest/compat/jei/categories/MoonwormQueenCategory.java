@@ -25,7 +25,7 @@ public class MoonwormQueenCategory implements IRecipeCategory<MoonwormQueenRepai
 	private final Component localizedName;
 
 	public MoonwormQueenCategory(IGuiHelper guiHelper) {
-		ResourceLocation location = new ResourceLocation(ModIds.JEI_ID, "textures/jei/gui/gui_vanilla.png");
+		ResourceLocation location = ResourceLocation.fromNamespaceAndPath(ModIds.JEI_ID, "textures/jei/gui/gui_vanilla.png");
 		this.background = guiHelper.createDrawable(location, 0, 60, RecipeViewerConstants.GENERIC_RECIPE_WIDTH, RecipeViewerConstants.GENERIC_RECIPE_HEIGHT);
 		this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(TFItems.MOONWORM_QUEEN.get()));
 		this.localizedName = Component.translatable("gui.twilightforest.moonworm_queen_jei");

@@ -165,7 +165,7 @@ public class TrophyTileEntityRenderer implements BlockEntityRenderer<TrophyBlock
 				matrixStackIn.translate(0.0F, 0.05F, 0.0F);
 				trophy.setRotations(animationProgress * 4.5F, y, 0.0F);
 				VertexConsumer phantomArmorVertex = buffer.getBuffer(RenderType.entityCutoutNoCull(textureLocKnightPhantomArmor));
-				trophy.renderHelmToBuffer(matrixStackIn, phantomArmorVertex, combinedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 0.0625F);
+				trophy.renderHelmToBuffer(matrixStackIn, phantomArmorVertex, combinedLight, OverlayTexture.NO_OVERLAY, -1);
 			}
 			case ALPHA_YETI -> {
 				matrixStackIn.scale(0.2F, 0.2F, 0.2F);

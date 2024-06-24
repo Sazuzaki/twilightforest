@@ -17,7 +17,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.decoration.HangingEntity;
-import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
@@ -120,7 +119,7 @@ public class MagicPainting extends HangingEntity {
 			if (location != null) {
 				this.setVariant(this.getReg().getHolder(location).orElse(this.getReg().getHolderOrThrow(MagicPaintingVariants.DEFAULT)));
 			}
-        }
+		}
 
 		this.direction = Direction.from2DDataValue(tag.getByte("facing"));
 		super.readAdditionalSaveData(tag);
@@ -133,22 +132,21 @@ public class MagicPainting extends HangingEntity {
 
 	@Override
 	protected AABB calculateBoundingBox(BlockPos pos, Direction direction) {
-		float f = 0.46875F;
 		Vec3 vec3 = Vec3.atCenterOf(pos).relative(direction, -0.46875D);
 		MagicPaintingVariant variant = this.getVariant().value();
-		double d0 = this.offsetForPaintingSize(variant.width());
-		double d1 = this.offsetForPaintingSize(variant.height());
-		Direction ccdir = direction.getCounterClockWise();
-		Vec3 vec31 = vec3.relative(ccdir, d0).relative(Direction.UP, d1);
+		double widthOffset = this.offsetForPaintingSize(variant.width());
+		double heightOffset = this.offsetForPaintingSize(variant.height());
+		Vec3 vec31 = vec3.relative(direction.getCounterClockWise(), widthOffset).relative(Direction.UP, heightOffset);
 		Direction.Axis axis = direction.getAxis();
-		double d2 = axis == Direction.Axis.X ? 0.0625D : variant.width();
-		double d3 = variant.height();
-		double d4 = axis == Direction.Axis.Z ? 0.0625D : variant.width();
-		return AABB.ofSize(vec31, d2, d3, d4);
+		double scale = 1.0D / 16.0D;
+		double x = axis == Direction.Axis.X ? 0.0625D : variant.width() * scale;
+		double y = variant.height() * scale;
+		double z = axis == Direction.Axis.Z ? 0.0625D : variant.width() * scale;
+		return AABB.ofSize(vec31, x, y, z);
 	}
 
 	private double offsetForPaintingSize(int size) {
-		return size % 2 == 0 ? 0.5D : 0.0D;
+		return size % 32 == 0 ? 0.5D : 0.0D;
 	}
 
 	@Override

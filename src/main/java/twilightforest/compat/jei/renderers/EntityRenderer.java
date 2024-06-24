@@ -3,7 +3,6 @@ package twilightforest.compat.jei.renderers;
 import mezz.jei.api.ingredients.IIngredientRenderer;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.TooltipFlag;
 import org.jetbrains.annotations.Nullable;
 import twilightforest.compat.jei.FakeEntityType;
@@ -32,7 +31,7 @@ public class EntityRenderer implements IIngredientRenderer<FakeEntityType> {
 	@Override
 	public void render(GuiGraphics graphics, @Nullable FakeEntityType type) {
 		if (type != null) {
-			EntityRenderingUtil.renderEntity(graphics.pose(), type.type(), this.size);
+			EntityRenderingUtil.renderEntity(graphics, type.type(), this.size);
 		}
 	}
 

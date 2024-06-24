@@ -77,6 +77,7 @@ public class KnightPhantomTrophyModel extends GenericTrophyModel {
 		this.head.render(matrix, buffer, packedLight, packedOverlay, color);
 	}
 
+	@Override
 	public void renderHelmToBuffer(PoseStack matrix, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
 		this.helmet.render(matrix, buffer, packedLight, packedOverlay, color);
 	}

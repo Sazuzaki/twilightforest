@@ -22,25 +22,24 @@ public class ChunkStatusTaskTransformer implements ITransformer<MethodNode> {
 	@Override
 	public @NotNull MethodNode transform(MethodNode node, ITransformerVotingContext context) {
 		AsmUtil.findMethodInstructions(
-				node,
-				Opcodes.INVOKEVIRTUAL,
-				"net/minecraft/world/level/chunk/ChunkGenerator",
-				"buildSurface",
-				"(Lnet/minecraft/server/level/WorldGenRegion;Lnet/minecraft/world/level/StructureManager;Lnet/minecraft/world/level/levelgen/RandomState;Lnet/minecraft/world/level/chunk/ChunkAccess;)V"
-			).findFirst()
-			.ifPresent(target -> node.instructions.insert(
-				target,
-				ASMAPI.listOf(
-					new VarInsnNode(Opcodes.ALOAD, 3), // ChunkAccess param
-					new VarInsnNode(Opcodes.ALOAD, 5), // WorldGenRegion variable
-					new MethodInsnNode(
-						Opcodes.INVOKESTATIC,
-						"twilightforest/ASMHooks",
-						"chunkBlanketing",
-						"(Lnet/minecraft/world/level/chunk/ChunkAccess;Lnet/minecraft/server/level/WorldGenRegion;)V"
-					)
+			node,
+			Opcodes.INVOKEVIRTUAL,
+			"net/minecraft/world/level/chunk/ChunkGenerator",
+			"buildSurface",
+			"(Lnet/minecraft/server/level/WorldGenRegion;Lnet/minecraft/world/level/StructureManager;Lnet/minecraft/world/level/levelgen/RandomState;Lnet/minecraft/world/level/chunk/ChunkAccess;)V"
+		).findFirst().ifPresent(target -> node.instructions.insert(
+			target,
+			ASMAPI.listOf(
+				new VarInsnNode(Opcodes.ALOAD, 3), // ChunkAccess param
+				new VarInsnNode(Opcodes.ALOAD, 5), // WorldGenRegion variable
+				new MethodInsnNode(
+					Opcodes.INVOKESTATIC,
+					"twilightforest/ASMHooks",
+					"chunkBlanketing",
+					"(Lnet/minecraft/world/level/chunk/ChunkAccess;Lnet/minecraft/server/level/WorldGenRegion;)V"
 				)
-			));
+			)
+		));
 		return node;
 	}
 

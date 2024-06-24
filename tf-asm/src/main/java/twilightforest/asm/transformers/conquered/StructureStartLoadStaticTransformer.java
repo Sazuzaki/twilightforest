@@ -1,4 +1,4 @@
-package twilightforest.asm.transformers.armor;
+package twilightforest.asm.transformers.conquered;
 
 import cpw.mods.modlauncher.api.ITransformer;
 import cpw.mods.modlauncher.api.ITransformerVotingContext;
@@ -15,28 +15,28 @@ import twilightforest.asm.AsmUtil;
 import java.util.Set;
 
 /**
- * {@link twilightforest.ASMHooks#armorColorRendering}
+ * {@link twilightforest.ASMHooks#loadStaticStart}
  */
-public class ArmorColorRenderingTransformer implements ITransformer<MethodNode> {
+public class StructureStartLoadStaticTransformer implements ITransformer<MethodNode> {
 
 	@Override
 	public @NotNull MethodNode transform(MethodNode node, ITransformerVotingContext context) {
 		AsmUtil.findMethodInstructions(
 			node,
-			Opcodes.INVOKESTATIC,
-			"net/minecraft/world/item/component/DyedItemColor",
-			"getOrDefault",
-			"(Lnet/minecraft/world/item/ItemStack;I)I"
+			Opcodes.INVOKESPECIAL,
+			"net/minecraft/world/level/levelgen/structure/StructureStart",
+			"<init>",
+			"(Lnet/minecraft/world/level/levelgen/structure/Structure;Lnet/minecraft/world/level/ChunkPos;ILnet/minecraft/world/level/levelgen/structure/pieces/PiecesContainer;)V"
 		).findFirst().ifPresent(target -> node.instructions.insert(
 			target,
 			ASMAPI.listOf(
-				new VarInsnNode(Opcodes.ALOAD, 8),
-				new VarInsnNode(Opcodes.ALOAD, 7),
+				new VarInsnNode(Opcodes.ALOAD, 10),
+				new VarInsnNode(Opcodes.ALOAD, 1),
 				new MethodInsnNode(
 					Opcodes.INVOKESTATIC,
 					"twilightforest/ASMHooks",
-					"armorColorRendering",
-					"(ILnet/minecraft/world/item/ArmorItem;Lnet/minecraft/world/item/ItemStack;)I"
+					"loadStaticStart",
+					"(Lnet/minecraft/world/level/levelgen/structure/StructureStart;Lnet/minecraft/world/level/levelgen/structure/pieces/PiecesContainer;Lnet/minecraft/nbt/CompoundTag;)Lnet/minecraft/world/level/levelgen/structure/StructureStart;"
 				)
 			)
 		));
@@ -51,9 +51,9 @@ public class ArmorColorRenderingTransformer implements ITransformer<MethodNode> 
 	@Override
 	public @NotNull Set<Target<MethodNode>> targets() {
 		return Set.of(Target.targetMethod(
-			"net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer",
-			"renderArmorPiece",
-			"(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/entity/EquipmentSlot;ILnet/minecraft/client/model/HumanoidModel;)V"
+			"net.minecraft.world.level.levelgen.structure.StructureStart",
+			"loadStaticStart",
+			"(Lnet/minecraft/world/level/levelgen/structure/pieces/StructurePieceSerializationContext;Lnet/minecraft/nbt/CompoundTag;J)Lnet/minecraft/world/level/levelgen/structure/StructureStart;"
 		));
 	}
 
