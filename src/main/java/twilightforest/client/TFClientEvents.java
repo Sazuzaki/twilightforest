@@ -242,10 +242,10 @@ public class TFClientEvents {
 		@SubscribeEvent
 		public static void registerModels(ModelEvent.RegisterAdditional event) {
 			event.register(ShieldLayer.LOC);
-			event.register(ModelResourceLocation.standalone(TwilightForestMod.prefix("trophy")));
-			event.register(ModelResourceLocation.standalone(TwilightForestMod.prefix("trophy_minor")));
-			event.register(ModelResourceLocation.standalone(TwilightForestMod.prefix("trophy_quest")));
-			event.register(ModelResourceLocation.standalone(TwilightForestMod.prefix("trollsteinn_light")));
+			event.register(ModelResourceLocation.standalone(TwilightForestMod.prefix("item/trophy")));
+			event.register(ModelResourceLocation.standalone(TwilightForestMod.prefix("item/trophy_minor")));
+			event.register(ModelResourceLocation.standalone(TwilightForestMod.prefix("item/trophy_quest")));
+			event.register(ModelResourceLocation.standalone(TwilightForestMod.prefix("item/trollsteinn_light")));
 
 			for (ResourceLocation location : JarRenderer.LOG_LOCATION_MAP.values()) {
 				String name = location.getPath();
