@@ -24,7 +24,7 @@ import twilightforest.init.TFEntities;
 public class HydraMortar extends ThrowableProjectile {
 
 	private static final int BURN_FACTOR = 5;
-	private static final int DIRECT_DAMAGE = 18;
+	private static final int DIRECT_DAMAGE = 68;
 
 	public int fuse = 80;
 	private boolean megaBlast = false;
