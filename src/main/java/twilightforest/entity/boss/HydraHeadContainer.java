@@ -40,8 +40,8 @@ public class HydraHeadContainer {
 
 	// balancing factors
 	private static final int FLAME_BURN_FACTOR = 3;
-	private static final int FLAME_DAMAGE = 19;
-	private static final int BITE_DAMAGE = 48;
+	private static final int FLAME_DAMAGE = 32;
+	private static final int BITE_DAMAGE = 128;
 	private static double FLAME_BREATH_TRACKING_SPEED = 0.04D;
 
 	private static final State NEXT_AUTOMATIC = null;
